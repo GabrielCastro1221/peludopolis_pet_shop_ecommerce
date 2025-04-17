@@ -1,0 +1,86 @@
+.login-register__container {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+}
+
+.login,
+.register {
+    border: 1px solid var(--border-color-alt);
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+.forgot__text {
+    font-size: var(--small-font-size);
+}
+
+.forgot__pass {
+    color: var(--first-color);
+}
+
+.forgot__pass:hover {
+    border-bottom: 0.5px solid var(--first-color);
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: var(--weight-500);
+    color: var(--text-color);
+}
+
+.select-city {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-field {
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 0.3rem;
+    color: var(--text-color);
+    outline: none;
+}
+
+.success-alert {
+    color: var(--success-color);
+    background-color: var(--success-bg);
+    border: 1px solid var(--success-border);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.error-message {
+    color: var(--error-color);
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 992px) {
+
+    .login,
+    .register {
+        padding: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .login-register__container {
+        grid-template-columns: 100%;
+    }
+}

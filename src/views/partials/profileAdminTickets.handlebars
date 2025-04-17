@@ -1,0 +1,27 @@
+<div class="tab__content" content id="tickets">
+    <h3 class="tab__header">Ordenes</h3>
+    <div class="tab__body">
+        <table class="placed__order-table">
+            <tr>
+                <th>Codigo</th>
+                <th>Fecha</th>
+                <th>Comprador</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+            {{#each tickets}}
+            <tr>
+                <td>{{code}}</td>
+                <td>{{purchase_datetime}}</td>
+                <td>{{purchaser}}</td>
+                <td>{{status}}</td>
+                <td>$ {{amount}}</td>
+                <td>
+                    <a href="#" class="view__order">Ver</a>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<div class="login">
+    <h3 class="section__title">
+        Recuperar contraseña
+    </h3>
+    <form action="/api/v1/auth/requestPasswordReset" method="POST" class="form grid">
+        <input type="email" placeholder="Ingresa tu email Email" name="email" id="email" class="form__input">
+        <div class="form__btn">
+            <button type="submit" class="btn">Enviar correo de recuperacion</button>
+        </div>
+    </form>
+    {{#if error}}
+    <p class="error-message">{{ error }}</p>
+    {{/if}}
+</div>

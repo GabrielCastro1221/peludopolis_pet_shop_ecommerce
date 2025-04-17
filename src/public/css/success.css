@@ -1,0 +1,18 @@
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 36px;
+    margin: 0;
+    color: var(--first-color);
+}
+
+p {
+    font-size: 18px;
+    color: var(--text-color);
+    margin: 20px 0;
+}

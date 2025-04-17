@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<section class="login">
+    <div class="container">
+        <h3 class="section__title">
+            Cambiar contraseña
+        </h3>
+        <form action="/api/v1/auth/reset-password" method="POST" class="form grid">
+            <input type="email" name="email" placeholder="Ingrese su Email" class="form__input" required />
+            <input type="text" name="token" id="token" placeholder="Ingrese el codigo de confirmación"
+                class="form__input" required />
+            <input type="password" name="password" placeholder="Ingrese la nueva Contraseña" class="form__input"
+                required />
+            <div>
+                <button type="submit" class="btn">
+                    Guardar
+                </button>
+            </div>
+        </form>
+        {{#if error}}
+        <p class="error-message">{{ error }}</p>
+        {{/if}}
+    </div>
+</section>

@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/css/productAdmin.css">
+
+<div class="tab__content" id="products">
+    <h3 class="tab__header title__tab">
+        Productos
+        <a href="#" class="btn" id="create-product">Crear producto</a>
+    </h3>
+
+    <div class="tab__body">
+        <table class="placed__order-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripción</th>
+                    <th>Marca</th>
+                    <th>Tipo del producto</th>
+                    <th>Categoria</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>$ {{price}}</td>
+                    <td>{{description}}</td>
+                    <td>{{brand}}</td>
+                    <td>{{type_product}}</td>
+                    <td>{{category}}</td>
+                    <td>
+                        <a href="#" class="view__order view__btn" data-id="{{_id}}">Ver</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div id="modal-products" class="modal-products">
+            <div class="modal-content-products">
+                <span class="close-products">&times;</span>
+
+                {{#each products}}
+                <div class="product" id="product-{{_id}}">
+                    <div class="product__modal-wrapper section">
+                        <div class="details__group">
+                            <img src="{{image}}" alt="{{name}}" class="image-prod" />
+
+                            {{#if thumbnail}}
+                            <div class="details__small-images grid">
+                                {{#each thumbnail}}
+                                <img src="{{this.url}}" alt="{{../name}}" class="details__small-img" />
+                                {{/each}}
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <div class="details__group dt">
+                            <h3 class="details__title">{{name}}</h3>
+                            <p class="details__brand">Marca: <span>{{brand}}</span></p>
+
+                            <div class="details__price flex">
+                                <span class="new__price">${{price}}</span>
+                            </div>
+
+                            <p class="short__description">{{description}}</p>
+
+                            <div class="details__color flex">
+                                <span class="details__color-title">Color</span>
+                                <ul class="color__list">
+                                    <li><a href="#" class="color__link"
+                                            style="background-color: hsl(37, 100%, 65%);"></a></li>
+                                    <li><a href="#" class="color__link"
+                                            style="background-color: hsl(353, 100%, 67%);"></a></li>
+                                    <li><a href="#" class="color__link"
+                                            style="background-color: hsl(49, 100%, 60%);"></a></li>
+                                    <li><a href="#" class="color__link"
+                                            style="background-color: hsl(304, 100%, 78%);"></a></li>
+                                    <li><a href="#" class="color__link"
+                                            style="background-color: hsl(126, 61%, 52%);"></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="details__size flex">
+                                <span class="details__size-title">Talla</span>
+                                <ul class="size__list">
+                                    <li><a href="#" class="size__link size-active">M</a></li>
+                                    <li><a href="#" class="size__link">L</a></li>
+                                    <li><a href="#" class="size__link">XL</a></li>
+                                    <li><a href="#" class="size__link">XXL</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-container">
+                        <button class="admin__btn"><i class="fi fi-rr-refresh"></i> Actualizar</button>
+                        <button class="feature__btn"><i class="fi fi-rr-star"></i> Destacar</button>
+                        <button class="new__arrive"><i class="fi fi-rr-shopping-cart-add"></i> Nuevo Arribo</button>
+                        <button class="best__seller"><i class="fi fi-rr-usd-circle"></i> Más vendido</button>
+                        <button class="user__btn"><i class="fi fi-rr-badge-percent"></i> Ofertar</button>
+                        <button class="delete__btn del"><i class="fi fi-rr-trash"></i> Eliminar</button>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+<script src="/js/profileAdminModalProducts.js"></script>
