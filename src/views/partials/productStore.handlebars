@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="/css/home.css">
 
-
 <div class="products__container grid">
     {{#each productos}}
     <div class="product__item">
@@ -42,10 +41,15 @@
             <div class="product__price flex">
                 <span class="new__price">$ {{price}}</span>
             </div>
-            <a href="#" class="action__btn cart__btn" aria-label="Añadir al carrito">
-                <i class="fi fi-rr-shopping-cart"></i>
-            </a>
+
+            <form class="add-to-cart-form" data-product-id="{{id}}">
+                <button type="submit" class="action__btn cart__btn" aria-label="Añadir al carrito">
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </button>
+            </form>
         </div>
     </div>
     {{/each}}
 </div>
+
+<script src="/js/store.js"></script>

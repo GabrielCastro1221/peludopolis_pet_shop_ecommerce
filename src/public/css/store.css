@@ -1,6 +1,11 @@
 .breadcrumb {
     background-color: var(--container-color);
     padding-block: 1.5rem;
+
+}
+
+.filters {
+    margin-left: 870px;
 }
 
 .breadcrumb__list {

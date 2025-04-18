@@ -28,19 +28,21 @@ class CartRepository {
   async addProductInCart(cartId, productId, quantity = 1) {
     try {
       const cart = await this.obtenerProductosDelCarrito(cartId);
-      const productExist = cartModel.products.find(
-        (item) => item.productId.toString() === productId
+      if (!cart) throw new Error("Carrito no encontrado");
+      const productExist = cart.products.find(
+        (item) => item.product.toString() === productId
       );
+
       if (productExist) {
         productExist.quantity += quantity;
       } else {
-        cartModel.products.push({ product: productId, quantity });
+        cart.products.push({ product: productId, quantity });
       }
       cart.markModified("products");
       await cart.save();
       return cart;
     } catch (error) {
-      throw new error("Error al agregar producto al carrito");
+      throw new Error("Error al agregar producto al carrito: " + error.message);
     }
   }
 

@@ -31,7 +31,7 @@ class CartController {
     const quantity = req.body.quantity || 1;
     try {
       await cartR.addProductInCart(cartId, productId, quantity);
-      res.redirect(`/carts/${cartId}`);
+      res.redirect(`/cart/${cartId}`);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

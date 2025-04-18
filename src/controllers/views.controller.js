@@ -2,13 +2,15 @@ const productModel = require("../models/product.model");
 const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
 const ticketModel = require("../models/ticket.model");
+const CartRepository = require("../repositories/cart.repository");
 
+const cartR = new CartRepository();
 class ViewsManager {
   renderPageNotFound = (req, res) => {
     try {
       res.render("pageNotFound");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -30,7 +32,7 @@ class ViewsManager {
 
       res.render("home", { featured, newArrive, seller, offer });
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -38,7 +40,7 @@ class ViewsManager {
     try {
       res.render("login");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -46,7 +48,7 @@ class ViewsManager {
     try {
       res.render("resetPass");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -54,7 +56,7 @@ class ViewsManager {
     try {
       res.render("changePass");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -62,7 +64,7 @@ class ViewsManager {
     try {
       res.render("emailConfirm");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -70,7 +72,7 @@ class ViewsManager {
     try {
       res.render("profileUser");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -115,7 +117,7 @@ class ViewsManager {
         message: errorMessage,
       });
     } catch (error) {
-      res.render("pageNotFound", { error: error.message });
+      res.redirect("/page-not-found");
     }
   };
 
@@ -168,7 +170,7 @@ class ViewsManager {
         query,
       });
     } catch (error) {
-      res.render("pageNotFound", { error: error.message });
+      res.redirect("/page-not-found");
     }
   };
 
@@ -177,11 +179,11 @@ class ViewsManager {
     try {
       const product = await productModel.findById(id);
       if (!product) {
-        res.render("pageNotFound");
+        res.redirect("/page-not-found");
       }
       res.render("productDetail", { product });
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
@@ -189,23 +191,40 @@ class ViewsManager {
     try {
       res.render("wishList");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 
-  renderCart = (req, res) => {
+  async renderCart(req, res) {
+    const cartId = req.params.cid;
     try {
-      res.render("cart");
+      const cart = await cartR.obtenerProductosDelCarrito(cartId);
+      if (!cart) {
+        return res.status(404).json({ error: "Carrito no encontrado" });
+      }
+      let totalPurchase = 0;
+      const productInCart = cart.products.map((item) => {
+        const product = item.product.toObject();
+        const quantity = item.quantity;
+        const totalPrice = product.price * quantity;
+        totalPurchase += totalPrice;
+        return { product: { ...product, totalPrice }, quantity, cartId };
+      });
+      res.render("cart", {
+        productos: productInCart,
+        totalPurchase,
+        cartId,
+      });
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
-  };
+  }
 
   renderBilling = (req, res) => {
     try {
       res.render("billing");
     } catch (error) {
-      res.render("pageNotFound");
+      res.redirect("/page-not-found");
     }
   };
 }
