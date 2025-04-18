@@ -3,36 +3,14 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 
 const schema = new Schema(
   {
-    name: { type: String, required: true },
+    title: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String },
     thumbnail: [
       {
-        url: { type: String, required: true },
-        public_id: { type: String, required: true },
-      },
-    ],
-    product_options: [
-      {
-        key: { type: String, required: true },
-        value: { type: String, required: true },
-      },
-    ],
-    product_options_2: [
-      {
-        key: { type: String, required: true },
-        value: { type: String, required: true },
-      },
-    ],
-    specification_list: [
-      {
-        specification: { type: String, required: true },
-      },
-    ],
-    tags: [
-      {
-        tag: { type: String, required: true },
+        url: { type: String,  },
+        public_id: { type: String, },
       },
     ],
     type_product: {

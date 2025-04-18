@@ -50,7 +50,7 @@ class UserController {
       });
 
       await newUser.save();
-      return res.render("profileAdmin", { success: "Registro exitoso" });
+      return res.redirect("/perfil-admin");
     } catch (error) {
       res.render("profileAdmin", {
         message: "Ocurrió un error en el servidor",

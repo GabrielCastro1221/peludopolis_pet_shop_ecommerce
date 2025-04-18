@@ -189,9 +189,47 @@
     border-radius: 8px;
     text-align: center;
     width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.close-create-use {
+.close-create-user {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__create-prod-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal__create-prod {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.close-create-prod {
     cursor: pointer;
     float: right;
     font-size: 18px;

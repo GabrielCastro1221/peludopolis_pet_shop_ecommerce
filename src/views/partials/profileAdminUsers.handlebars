@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/login.css">
 
 <div class="tab__content" content id="users">
-    <h3 class="tab__header title__tab">Usuarios <a href="" class="btn" id="create-user">Crear Usuario</a></h3>
+    <h3 class="tab__header title__tab">Usuarios <a href="" class="btn btn--sm" id="create-user">Crear Usuario</a></h3>
 
     <div id="modal-create-user" class="modal__create-user">
         <div class="modal__create-content">
@@ -14,7 +14,7 @@
                     <input type="email" placeholder="Ingresa el Email" id="email" name="email"
                         class="form__input email">
                     <input type="password" placeholder="Ingresa la Contraseña" id="password" name="password"
-                        class="form__input pass">
+                        class="form__input pass" autocomplete="off">
                     <input type="number" placeholder="Ingresa la edad" id="age" name="age" class="form__input">
                     <div class="form flex-between">
                         <label class="label">
@@ -60,7 +60,7 @@
                         class="form__input">
 
                     <div class="form__btn">
-                        <button class="btn">Crear usuario</button>
+                        <button class="btn btn--sm">Crear usuario</button>
                     </div>
                 </form>
             </div>

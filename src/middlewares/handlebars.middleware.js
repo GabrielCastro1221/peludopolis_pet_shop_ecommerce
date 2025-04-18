@@ -16,6 +16,9 @@ module.exports = (app) => {
         isEqual: function (a, b) {
           return a === b;
         },
+        eq: function (a, b) {
+          return a === b; 
+        },
       },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,

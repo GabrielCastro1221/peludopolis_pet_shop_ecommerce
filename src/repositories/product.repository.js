@@ -4,69 +4,29 @@ const { v4: uuidv4 } = require("uuid");
 
 class ProductRepository {
   async createProduct({
-    name,
+    title,
     price,
     description,
     stock,
-    product_options = [],
-    product_options_2 = [],
-    specification_list = [],
-    tags = [],
+    type_product,
     category,
     image,
     thumbnails = [],
     brand,
   }) {
     try {
-      if (
-        !name ||
-        !price ||
-        !description ||
-        !image ||
-        thumbnails.length === 0 ||
-        !stock ||
-        !category ||
-        !brand
-      ) {
+      if (!title || !price || !description || !stock || !category || !brand) {
         throw new Error("Todos los campos son requeridos");
       }
-      const parsedProductOptions = Array.isArray(product_options)
-        ? product_options.map((option) => ({
-            key: option.key,
-            value: option.value,
-          }))
-        : [];
-
-      const parsedProductOptions2 = Array.isArray(product_options_2)
-        ? product_options_2.map((option) => ({
-            key: option.key,
-            value: option.value,
-          }))
-        : [];
-
-      const parsedSpecificationList = Array.isArray(specification_list)
-        ? specification_list.map((spec) => ({
-            specification: spec.specification,
-          }))
-        : [];
-
-      const parsedTags = Array.isArray(tags)
-        ? tags.map((tag) => ({
-            tag: tag.tag,
-          }))
-        : [];
 
       const newProduct = new productModel({
-        name,
+        title,
         price,
         description,
         image,
         thumbnail: thumbnails,
-        product_options: parsedProductOptions,
-        product_options_2: parsedProductOptions2,
-        specification_list: parsedSpecificationList,
-        tags: parsedTags,
         code: uuidv4(),
+        type_product,
         stock,
         category,
         brand,

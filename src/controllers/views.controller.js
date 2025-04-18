@@ -14,11 +14,23 @@ class ViewsManager {
 
   renderHome = async (req, res) => {
     try {
-      const products = await productModel.find({}).lean();
-      if (!products) {
-        res.render("home", { error: "No hay productos disponibles" });
-      }
-      res.render("home", { products });
+      const featured = await productModel
+        .find({ type_product: "destacado" })
+        .lean();
+
+      const newArrive = await productModel
+        .find({ type_product: "nuevo arribo" })
+        .lean();
+
+      const seller = await productModel
+        .find({ type_product: "mas vendido" })
+        .lean();
+      
+        const offer = await productModel
+        .find({ type_product: "oferta" })
+        .lean();
+
+      res.render("home", { featured, newArrive, seller, offer });
     } catch (error) {
       res.render("pageNotFound");
     }
@@ -170,13 +182,13 @@ class ViewsManager {
   };
 
   renderProductDetail = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
       const product = await productModel.findById(id);
-      if(!product) {
+      if (!product) {
         res.render("pageNotFound");
       }
-      res.render("productDetail", {product});
+      res.render("productDetail", { product });
     } catch (error) {
       res.render("pageNotFound");
     }

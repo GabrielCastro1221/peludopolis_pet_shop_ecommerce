@@ -13,11 +13,6 @@ class SocketProduct {
     this.io.on("connection", async (socket) => {
       socket.emit("products", await product.getProducts());
 
-      socket.on("addProd", async (producto) => {
-        await product.createProduct(producto);
-        this.emitUpdatedProducts(socket);
-      });
-
       socket.on("featureProd", async (id) => {
         await product.featureProduct(id);
         this.emitUpdatedProducts(socket);
