@@ -25,10 +25,8 @@ class ViewsManager {
       const seller = await productModel
         .find({ type_product: "mas vendido" })
         .lean();
-      
-        const offer = await productModel
-        .find({ type_product: "oferta" })
-        .lean();
+
+      const offer = await productModel.find({ type_product: "oferta" }).lean();
 
       res.render("home", { featured, newArrive, seller, offer });
     } catch (error) {
@@ -85,7 +83,6 @@ class ViewsManager {
         .find({})
         .populate("products.product", "_id name price")
         .lean();
-
       let errorMessage = null;
 
       if (users.length === 0) {
@@ -101,7 +98,6 @@ class ViewsManager {
       if (tickets.length === 0) {
         errorMessage = "No se han generado tickets de compra en la plataforma.";
       }
-
       const cartsWithMessage = carts.map((cart) => {
         if (cart.products.length === 0) {
           return {
@@ -111,7 +107,6 @@ class ViewsManager {
         }
         return cart;
       });
-
       res.render("profileAdmin", {
         users: users || [],
         products: products || [],
@@ -127,27 +122,24 @@ class ViewsManager {
   renderStore = async (req, res) => {
     try {
       const { page = 1, limit = 6, sort = "asc", query = null } = req.query;
-
       const pageValue = parseInt(page, 10) || 1;
       const limitValue = parseInt(limit, 10) || 100;
-
       const sortOptions =
         sort === "asc" ? { price: 1 } : sort === "desc" ? { price: -1 } : {};
-      const queryOptions = query ? { categories: { $in: [query] } } : {};
-
+      const queryOptions = query ? { category: query } : {};
       const products = await productModel
         .find(queryOptions)
         .sort(sortOptions)
         .skip((pageValue - 1) * limitValue)
         .limit(limitValue);
-
       const totalProducts = await productModel.countDocuments(queryOptions);
       const totalPages = Math.ceil(totalProducts / limitValue);
+      const categorias = await productModel.distinct("category");
 
       if (products.length === 0) {
         return res.render("store", {
           productos: [],
-          categorias: await productModel.distinct("categories"),
+          categorias,
           error: "No hay productos disponibles en la tienda",
           hasPrevPage: false,
           hasNextPage: false,
@@ -158,14 +150,13 @@ class ViewsManager {
           query,
         });
       }
-
       res.render("store", {
         productos: products.map((producto) => ({
           id: producto._id,
           type_product: producto.type_product,
           ...producto.toObject(),
         })),
-        categorias: await productModel.distinct("categories"),
+        categorias,
         hasPrevPage: pageValue > 1,
         hasNextPage: pageValue < totalPages,
         prevPage: pageValue > 1 ? pageValue - 1 : null,

@@ -19,19 +19,8 @@ class MailerController {
         from: configObject.mailer.email_from,
         to: email,
         subject: "Pet-Shop - Recuperar contraseña",
-        html: ` <div style="font-family: Arial, 
-                    sans-serif; 
-                    color: #333; 
-                    line-height: 1.6; 
-                    max-width: 600px; 
-                    margin: 0 auto; 
-                    border: 1px solid #ddd; 
-                    padding: 20px; 
-                    border-radius: 10px;"
-                > 
-        <div style="text-align: center; 
-                margin-bottom: 20px;"
-            > 
+        html: ` <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;"> 
+        <div style="text-align: center; margin-bottom: 20px;"> 
           <h1 style="color: #0D1936;">
             Pet-Shop
           </h1>
@@ -48,14 +37,7 @@ class MailerController {
         </h3> 
         <div style="text-align: center; margin-top: 20px;"> 
           <a href="${configObject.server.base_url}/change-password" 
-            style="display: inline-block; 
-                background-color: #0D1936; 
-                color: white; 
-                text-decoration: none; 
-                padding: 10px 20px; 
-                border-radius: 5px; 
-                font-weight: bold;"
-            >
+            style="display: inline-block; background-color: #0D1936; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
             Recuperar contraseña
           </a> 
         </div> 

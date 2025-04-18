@@ -54,7 +54,7 @@ const infoData = [
 ];
 
 const accountData = [
-  { link: "#", class: "footer__link", desc: "Ingresa" },
+  { link: "/login", class: "footer__link", desc: "Ingresa" },
   { link: "#", class: "footer__link", desc: "Carrito de compras" },
   { link: "#", class: "footer__link", desc: "Favoritos" },
   { link: "#", class: "footer__link", desc: "Orden de seguimiento" },
