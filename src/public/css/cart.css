@@ -153,6 +153,16 @@
     display: inline-flex;
 }
 
+.detail__link {
+    color: var(--first-color);
+    font-weight: var(--weight-500);
+    cursor: pointer;
+}
+
+.detail__link:hover {
+    color: var(--text-color);
+}
+
 @media screen and (max-width: 992px) {
     .cart__group {
         grid-template-columns: 1fr;

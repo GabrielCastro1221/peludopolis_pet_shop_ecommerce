@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
+const wishlistModel = require("../models/wishList.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const configObject = require("../config/env.config");
@@ -52,6 +53,9 @@ class AuthController {
       const newCart = new cartModel();
       await newCart.save();
 
+      const newWishList = new wishlistModel();
+      await newWishList.save();
+
       const newUser = new userModel({
         name,
         last_name,
@@ -62,6 +66,7 @@ class AuthController {
         gender,
         phone,
         cart: newCart._id,
+        wishlist: newWishList._id,
         address,
         city,
       });

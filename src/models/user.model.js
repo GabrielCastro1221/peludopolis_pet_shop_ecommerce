@@ -9,6 +9,7 @@ const schema = new Schema(
     password: { type: String, required: true },
     age: { type: Number },
     cart: { type: Schema.Types.ObjectId, ref: "Cart" },
+    wishlist: { type: Schema.Types.ObjectId, ref: "Wishlist" },
     role: { type: String, enum: ["admin", "usuario"], default: "usuario" },
     gender: { type: String, enum: ["masculino", "femenino"] },
     phone: { type: String },

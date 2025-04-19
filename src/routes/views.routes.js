@@ -16,7 +16,7 @@ router.get("/perfil-usuario", views.renderProfileUser);
 router.get("/perfil-admin", views.renderProfileAdmin);
 router.get("/tienda", views.renderStore);
 router.get("/tienda/:id", views.renderProductDetail);
-router.get("/lista-deseos", views.renderWitchList);
+router.get("/lista-deseos/:id", views.renderWitchList);
 router.get("/cart/:id", views.renderCart);
 router.get("/checkout", views.renderBilling);
 

@@ -1,5 +1,11 @@
 <link rel="stylesheet" href="/css/store.css">
 <link rel="stylesheet" href="/css/cart.css">
 
-{{> breadCrumpCart}}
-{{> cart}}
+<section class="breadcrumb">
+    {{> breadCrumpCart}}
+</section>
+<section class="cart section--lg container" data-cart-id="{{cart._id}}">
+    {{> cart}}
+</section>
+
+<script src="/js/cart.js"></script>

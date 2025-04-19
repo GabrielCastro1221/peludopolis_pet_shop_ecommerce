@@ -1,14 +1,23 @@
 <link rel="stylesheet" href="/css/store.css" />
+<link rel="stylesheet" href="/css/home.css">
 
 <section class="breadcrumb">
     {{> breadCrump}}
+    {{> filterStore}}
 </section>
 
 <section class="products section container">
     <p class="total__products">
         Tenemos <span>los mejores</span> productos para tu peludo.
     </p>
-    {{> productStore}}
-    {{> paginationStore}}
+    <div class="products__container grid">
+        {{> productStore}}
+    </div>
+    <ul class="pagination">
+        {{> paginationStore}}
+    </ul>
     {{> category}}
 </section>
+
+<script src="/js/filterStore.js"></script>
+<script src="/js/store.js"></script>

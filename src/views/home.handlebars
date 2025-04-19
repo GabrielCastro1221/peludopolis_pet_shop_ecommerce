@@ -1,7 +1,33 @@
 <link rel="stylesheet" href="/css/home.css">
 
-{{> hero}}
+<section class="home section--lg">
+    <div class="home__container container grid">
+        {{> hero}}
+    </div>
+</section>
+
 {{> category}}
-{{> productsHome}}
-{{> deals}}
-{{> newArrivals}}
+
+<section class="products section container">
+    {{> productsHome}}
+</section>
+
+<section class="deals section">
+    <div class="deals__container container grid">
+        {{> deals}}
+    </div>
+</section>
+
+<section class="new__arrivals container section">
+    <h3 class="section__title">
+        <span>Nuevos</span>
+        arribos
+    </h3>
+    <div class="new__container swiper">
+        {{> newArrivals}}
+    </div>
+</section>
+
+<script src="/js/productTabs.js"></script>
+<script src="/js/swiperProducts.js"></script>
+<script src="/js/store.js"></script>

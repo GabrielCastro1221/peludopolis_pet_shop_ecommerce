@@ -8,4 +8,4 @@ const schema = new Schema({
   ],
 });
 
-module.exports = model("wish_list", schema);
+module.exports = model("Wishlist", schema);

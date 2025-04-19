@@ -1,6 +1,7 @@
 const productModel = require("../models/product.model");
 const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
+const wishlistModel = require("../models/wishList.model");
 const ticketModel = require("../models/ticket.model");
 const CartRepository = require("../repositories/cart.repository");
 
@@ -188,33 +189,30 @@ class ViewsManager {
   };
 
   renderWitchList = async (req, res) => {
+    const idWishlist = req.params.id;
     try {
-      res.render("wishList");
+      const wish = await wishlistModel
+        .findById(idWishlist)
+        .populate("products.product", "_id title price image");
+      if (!wish) {
+        throw new Error("Carrito no encontrado");
+      }
+      res.render("wishList", { wish });
     } catch (error) {
       res.redirect("/page-not-found");
     }
   };
 
   async renderCart(req, res) {
-    const cartId = req.params.cid;
+    const idCarrito = req.params.id;
     try {
-      const cart = await cartR.obtenerProductosDelCarrito(cartId);
+      const cart = await cartModel
+        .findById(idCarrito)
+        .populate("products.product", "_id title price image");
       if (!cart) {
-        return res.status(404).json({ error: "Carrito no encontrado" });
+        throw new Error("Carrito no encontrado");
       }
-      let totalPurchase = 0;
-      const productInCart = cart.products.map((item) => {
-        const product = item.product.toObject();
-        const quantity = item.quantity;
-        const totalPrice = product.price * quantity;
-        totalPurchase += totalPrice;
-        return { product: { ...product, totalPrice }, quantity, cartId };
-      });
-      res.render("cart", {
-        productos: productInCart,
-        totalPurchase,
-        cartId,
-      });
+      res.render("cart", { cart });
     } catch (error) {
       res.redirect("/page-not-found");
     }

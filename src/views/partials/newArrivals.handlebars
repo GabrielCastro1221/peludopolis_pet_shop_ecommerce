@@ -1,67 +1,61 @@
-<section class="new__arrivals container section">
-    <h3 class="section__title">
-        <span>Nuevos</span>
-        arribos
-    </h3>
-    <div class="new__container swiper">
-        <div class="swiper-wrapper">
-            {{#each newArrive}}
-            <div class="product__item swiper-slide">
-                <div class="product__banner">
-                    <a href="/tienda/{{_id}}" class="product__images">
-                        <img src="{{image}}" alt="{{title}}" class="product__img default">
+<div class="swiper-wrapper">
+    {{#each newArrive}}
+    <div class="product__item swiper-slide">
+        <div class="product__banner">
+            <a href="/tienda/{{_id}}" class="product__images">
+                <img src="{{image}}" alt="{{title}}" class="product__img default">
 
-                        <img src="{{image}}" alt="{{title}}" class="product__img hover">
-                    </a>
+                <img src="{{image}}" alt="{{title}}" class="product__img hover">
+            </a>
 
-                    <div class="product__actions">
-                        <a href="/tienda/{{_id}}" class="action__btn" aria-label="Detalle del producto">
-                            <i class="fi fi-rr-eye"></i>
-                        </a>
-                        <a href="#" class="action__btn" aria-label="Añadir a lista de deseos">
-                            <i class="fi fi-rr-heart"></i>
-                        </a>
-                        <a href="#" class="action__btn" aria-label="Compartir">
-                            <i class="fi fi-rr-shuffle"></i>
-                        </a>
-                    </div>
-
-                    <div class="product__badge light-pink">
-                        {{type_product}}
-                    </div>
-                </div>
-
-                <div class="product__content">
-                    <span class="product__category">{{category}}</span>
-                    <a href="#">
-                        <h3 class="product__title">{{title}}</h3>
-                    </a>
-                    <div class="product__rating">
-                        <i class="fi fi-rr-star"></i>
-                        <i class="fi fi-rr-star"></i>
-                        <i class="fi fi-rr-star"></i>
-                        <i class="fi fi-rr-star"></i>
-                        <i class="fi fi-rr-star"></i>
-                    </div>
-                    <div class="product__price flex">
-                        <span class="new__price">${{price}}</span>
-                        <span class="old__price">$245.82</span>
-                    </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Añadir al carrito">
-                        <i class="fi fi-rr-shopping-cart"></i>
-                    </a>
-                </div>
+            <div class="product__actions">
+                <a href="/tienda/{{_id}}" class="action__btn" aria-label="Detalle del producto">
+                    <i class="fi fi-rr-eye"></i>
+                </a>
+                <form class="add-to-wish-form" data-product-id="{{_id}}">
+                    <button type="submit" class="action__btn" aria-label="Añadir a lista de deseos">
+                        <i class="fi fi-rr-heart"></i>
+                    </button>
+                </form>
+                <a href="#" class="action__btn" aria-label="Compartir">
+                    <i class="fi fi-rr-shuffle"></i>
+                </a>
             </div>
-            {{/each}}
+
+            <div class="product__badge light-pink">
+                {{type_product}}
+            </div>
         </div>
 
-        <div class="swiper-button-next">
-            <i class="fi fi-rr-angle-small-right"></i>
-        </div>
-        <div class="swiper-button-prev">
-            <i class="fi fi-rr-angle-small-left"></i>
+        <div class="product__content">
+            <span class="product__category">{{category}}</span>
+            <a href="#">
+                <h3 class="product__title">{{title}}</h3>
+            </a>
+            <div class="product__rating">
+                <i class="fi fi-rr-star"></i>
+                <i class="fi fi-rr-star"></i>
+                <i class="fi fi-rr-star"></i>
+                <i class="fi fi-rr-star"></i>
+                <i class="fi fi-rr-star"></i>
+            </div>
+            <div class="product__price flex">
+                <span class="new__price">${{price}}</span>
+                <span class="old__price">$245.82</span>
+            </div>
+            <form class="add-to-cart-form" data-product-id="{{_id}}">
+                <button type="submit" class="action__btn cart__btn" aria-label="Añadir al carrito">
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </button>
+            </form>
         </div>
     </div>
-</section>
+    {{/each}}
+</div>
 
-<script src="/js/swiperProducts.js"></script>
+<div class="swiper-button-next">
+    <i class="fi fi-rr-angle-small-right"></i>
+</div>
+<div class="swiper-button-prev">
+    <i class="fi fi-rr-angle-small-left"></i>
+</div>

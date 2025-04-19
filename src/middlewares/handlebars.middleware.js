@@ -17,7 +17,10 @@ module.exports = (app) => {
           return a === b;
         },
         eq: function (a, b) {
-          return a === b; 
+          return a === b;
+        },
+        multiply: function (a, b) {
+          return a * b;
         },
       },
       runtimeOptions: {

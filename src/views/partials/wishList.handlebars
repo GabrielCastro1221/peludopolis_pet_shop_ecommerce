@@ -1,92 +1,44 @@
-<section class="wishlist section--lg container">
-    <div class="table__container">
-        <table class="table">
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Unidades disponibles</th>
-                <th>Actions</th>
-                <th>Quitar</th>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="/assets/img/product-1-2.jpg" alt="" class="table__img">
-                </td>
-                <td>
-                    <h3 class="table__title">
-                        J. crew marcantile Women Short Sleeve
-                    </h3>
-                    <p class="table__description">
-                        Maboriosam in a tonto nesciung eget distagi mangajdff
-                    </p>
-                </td>
-                <td>
-                    <span class="table__price">$110</span>
-                </td>
-                <td>
-                    <span class="table__stock">In Stock</span>
-                </td>
-                <td>
-                    <a href="#" class="btn btn--sm">Añadir al carrito</a>
-                </td>
-                <td>
+<div class="table__container">
+    <table class="table">
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Detalle del producto</th>
+            <th>Quitar</th>
+        </tr>
+        {{#each wish.products}}
+        <tr>
+            <td>
+                <a href="/tienda/{{this.product._id}}"><img src="{{this.product.image}}" alt="{{this.product.title}}"
+                        class="table__img"></a>
+            </td>
+            <td>
+                <h3 class="table__title">{{this.product.title}}</h3>
+                <p class="table__description">{{this.product.description}}</p>
+            </td>
+            <td>
+                <span class="table__price">${{this.product.price}}</span>
+            </td>
+            <td>
+                <a href="/tienda/{{this.product._id}}" class="detail__link">Ver producto</a>
+            </td>
+            <td>
+                <button class="btn btn--sm btn--delete" data-product-id="{{this.product._id}}">
                     <i class="fi fi-rr-trash"></i>
-                </td>
-            </tr>
+                </button>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
 
-            <tr>
-                <td>
-                    <img src="/assets/img/product-7-1.jpg" alt="" class="table__img">
-                </td>
-                <td>
-                    <h3 class="table__title">
-                        J. crew marcantile Women Short Sleeve
-                    </h3>
-                    <p class="table__description">
-                        Maboriosam in a tonto nesciung eget distagi mangajdff
-                    </p>
-                </td>
-                <td>
-                    <span class="table__price">$110</span>
-                </td>
-                <td>
-                    <span class="table__stock">In Stock</span>
-                </td>
-                <td>
-                    <a href="#" class="btn btn--sm">Añadir al carrito</a>
-                </td>
-                <td>
-                    <i class="fi fi-rr-trash"></i>
-                </td>
-            </tr>
+<div class="cart__actions">
+    <a href="#" class="btn flex btn--md btn--empty-wish">
+        <i class="fi fi-rr-trash"></i> Vaciar la lista de deseos
+    </a>
 
-            <tr>
-                <td>
-                    <img src="/assets/img/product-3-1.jpg" alt="" class="table__img">
-                </td>
-                <td>
-                    <h3 class="table__title">
-                        J. crew marcantile Women Short Sleeve
-                    </h3>
-                    <p class="table__description">
-                        Maboriosam in a tonto nesciung eget distagi mangajdff
-                    </p>
-                </td>
-                <td>
-                    <span class="table__price">$110</span>
-                </td>
-                <td>
-                    <span class="table__stock">In Stock</span>
-                </td>
-                <td>
-                    <a href="#" class="btn btn--sm">Añadir al carrito</a>
-                </td>
-                <td>
-                    <i class="fi fi-rr-trash"></i>
-                </td>
-            </tr>
-        </table>
-    </div>
-</section>
+    <a href="/tienda" class="btn flex btn--md">
+        <i class="fi fi-rr-basket-shopping-simple"></i> Ver mas productos
+    </a>
+</div>

@@ -1,0 +1,14 @@
+.title-404 {
+    font-size: var(--big-font-size);
+    font-weight: var(--weight-700);
+    color: var(--error-color);
+}
+
+.desc-404 {
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+}
+
+.mt-2 {
+    margin-top: 20px;
+}

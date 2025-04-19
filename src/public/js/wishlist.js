@@ -1,15 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const cartSection = document.querySelector(".cart");
-  const cartId = cartSection.getAttribute("data-cart-id");
+  const wishSection = document.querySelector(".wishlist");
+  const wishId = wishSection.getAttribute("data-wishlist-id");
   const deleteButtons = document.querySelectorAll(".btn--delete");
 
   deleteButtons.forEach((button) => {
     button.addEventListener("click", async (e) => {
       const productId = button.getAttribute("data-product-id");
-
       const confirmDelete = await Swal.fire({
-        title: "¿Eliminar producto?",
-        text: "¿Estás seguro de que deseas eliminar este producto del carrito?",
+        title: "¿Eliminar producto de la lista de deseos?",
+        text: "¿Estás seguro de que deseas eliminar este producto de la lista de deseos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -17,23 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmButtonText: "Sí, eliminar",
         cancelButtonText: "Cancelar",
       });
-
       if (!confirmDelete.isConfirmed) return;
-
       try {
         const response = await fetch(
-          `/api/v1/cart/${cartId}/products/${productId}`,
+          `/api/v1/wishlist/${wishId}/products/${productId}`,
           {
             method: "DELETE",
           }
         );
         const result = await response.json();
-
         if (response.ok) {
           await Swal.fire({
             icon: "success",
             title: "Producto eliminado",
-            text: "El producto ha sido eliminado del carrito.",
+            text: "El producto ha sido eliminado de la lista de deseos.",
             confirmButtonText: "Aceptar",
           });
           location.reload();
@@ -55,26 +51,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const emptyCartButton = document.querySelector(".btn--empty-cart");
-  if (emptyCartButton) {
-    emptyCartButton.addEventListener("click", async (e) => {
+  const emptyWishButton = document.querySelector(".btn--empty-wish");
+  if (emptyWishButton) {
+    emptyWishButton.addEventListener("click", async (e) => {
       e.preventDefault();
-
       const confirmDelete = await Swal.fire({
         title: "¿Estás seguro?",
-        text: "Esto vaciará todos los productos del carrito.",
+        text: "Esto vaciará todos los productos de la lista de deseos.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "Sí, vaciar carrito",
+        confirmButtonText: "Sí, vaciar la lista de deseos",
         cancelButtonText: "Cancelar",
       });
 
       if (!confirmDelete.isConfirmed) return;
 
       try {
-        const response = await fetch(`/api/v1/cart/${cartId}`, {
+        const response = await fetch(`/api/v1/wishlist/${wishId}`, {
           method: "DELETE",
         });
 
@@ -83,23 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           await Swal.fire({
             icon: "success",
-            title: "Carrito vaciado",
-            text: "El carrito ha sido vaciado correctamente.",
+            title: "Lista de deseos vacia",
+            text: "La lista de deseos ha sido vaciada correctamente.",
           });
           location.reload();
         } else {
           await Swal.fire({
             icon: "error",
             title: "Error",
-            text: result.message || "No se pudo vaciar el carrito.",
+            text: result.message || "No se pudo vaciar la lista de deseos.",
           });
         }
       } catch (error) {
-        console.error("Error al vaciar el carrito:", error);
+        console.error("Error al vaciar la lista de deseos:", error);
         await Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Ocurrió un error al vaciar el carrito.",
+          text: "Ocurrió un error al vaciar la lista de deseos.",
         });
       }
     });

@@ -39,52 +39,6 @@ class ProductRepository {
     }
   }
 
-  async getProducts(limit = 100, page = 1, sort, query) {
-    try {
-      const skip = (page - 1) * limit;
-      let queryOptions = {};
-      if (query) {
-        queryOptions = { category: query };
-      }
-      const sortOptions = {};
-      if (sort) {
-        if (sort === "asc" || sort === "desc") {
-          sortOptions.price = sort === "asc" ? 1 : -1;
-        }
-      }
-      const productos = await productModel
-        .find(queryOptions)
-        .sort(sortOptions)
-        .skip(skip)
-        .limit(limit);
-      const totalProducts = await productModel.countDocuments(queryOptions);
-      const totalPages = Math.ceil(totalProducts / limit);
-      const hasPrevPage = page > 1;
-      const hasNextPage = page < totalPages;
-      return {
-        docs: productos,
-        totalPages,
-        prevPage: hasPrevPage ? page - 1 : null,
-        nextPage: hasNextPage ? page + 1 : null,
-        page,
-        hasPrevPage,
-        hasNextPage,
-        prevLink: hasPrevPage
-          ? `/api/v1/products?limit=${limit}&page=${
-              page - 1
-            }&sort=${sort}&query=${query}`
-          : null,
-        nextLink: hasNextPage
-          ? `/api/v1/products?limit=${limit}&page=${
-              page + 1
-            }&sort=${sort}&query=${query}`
-          : null,
-      };
-    } catch (error) {
-      throw new error("Error al obtener los productos");
-    }
-  }
-
   async deleteProduct(id) {
     const deleteProd = await productModel.findByIdAndDelete(id);
     if (!deleteProd) {

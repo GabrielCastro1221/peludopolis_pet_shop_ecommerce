@@ -1,7 +1,26 @@
 <link rel="stylesheet" href="/css/detail.css">
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/store.css">
 
-{{> breadCrumpDetail}}
-{{> productDetails}}
-{{> detailTab}}
+<section class="breadcrumb">
+    {{> breadCrumpDetail}}
+</section>
+
+<section class="details section--lg">
+    <div class="details__container container grid">
+        {{> productDetails}}
+    </div>
+</section>
+
+<section class="detail__tab container">
+    <div class="detail__tabs">
+        <span class="detail__tab" data-target="#reviews">
+            Reviews(3)
+        </span>
+    </div>
+    {{> detailTab}}
+</section>
 {{> category}}
+
+<script src="/js/galleryImgs.js"></script>
+<script src="/js/productTabs.js"></script>

@@ -9,9 +9,4 @@ const schema = new Schema({
   ],
 });
 
-schema.pre("findOne", function (next) {
-  this.populate("products.product", "_id name price");
-  next();
-});
-
 module.exports = model("Cart", schema);

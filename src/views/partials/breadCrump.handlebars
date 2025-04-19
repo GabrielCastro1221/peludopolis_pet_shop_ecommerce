@@ -3,31 +3,3 @@
     <li>/</li>
     <li><a href="/tienda" class="breadcrumb__link">Tienda</a></li>
 </ul>
-
-<div class="filters">
-    <form class="form flex-between">
-        <label class="label">
-            filtrar precio:
-            <select class="select-field" id="filter-select">
-                <option value="/tienda?sort=asc">Menor precio</option>
-                <option value="/tienda?sort=desc">Mayor precio</option>
-            </select>
-        </label>
-    </form>
-</div>
-
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const sort = urlParams.get('sort');
-    const select = document.getElementById('filter-select');
-
-    if (sort) {
-        select.value = `/tienda?sort=${sort}`;
-    }
-
-    select.addEventListener('change', function () {
-        const selectedValue = this.value;
-        window.location.href = selectedValue;
-    });
-
-</script>

@@ -1,5 +1,11 @@
 <link rel="stylesheet" href="/css/store.css">
 <link rel="stylesheet" href="/css/cart.css">
 
-{{> breadCrumpWish}}
-{{> wishList}}
+<section class="breadcrumb">
+    {{> breadCrumpWish}}
+</section>
+<section class="wishlist section--lg container" data-wishlist-id="{{wish._id}}">
+    {{> wishList}}
+</section>
+
+<script src="/js/wishlist.js"></script>
