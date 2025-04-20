@@ -2,9 +2,29 @@
 
 <section class="login-register section--lg">
     <div class="login-register__container container grid">
-        {{> login}}
-        {{> register}}
+        <div class="login">
+            <h3 class="section__title">
+                Login
+            </h3>
+            {{> login}}
+        </div>
+
+        <div class="register">
+            <h3 class="section__title">
+                Crear una cuenta
+            </h3>
+            {{#if message}}
+            <p class="error-message">{{message}}</p>
+            {{/if}}
+            {{#if success}}
+            <div class="success-alert">
+                {{success}}
+            </div>
+            {{/if}}
+            {{> register}}
+        </div>
     </div>
 </section>
 
+<script src="/js/login.js"></script>
 <script src="/js/validateForms.js"></script>

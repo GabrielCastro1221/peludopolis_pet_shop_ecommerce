@@ -12,6 +12,7 @@ const schema = new Schema(
     wishlist: { type: Schema.Types.ObjectId, ref: "Wishlist" },
     role: { type: String, enum: ["admin", "usuario"], default: "usuario" },
     gender: { type: String, enum: ["masculino", "femenino"] },
+    newsletter: { type: String, enum: ["suscrito", "no suscrito"], default: "no suscrito" },
     phone: { type: String },
     address: { type: String },
     city: { type: String },

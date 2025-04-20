@@ -4,8 +4,15 @@
 <section class="breadcrumb">
     {{> breadCrumpCart}}
 </section>
+
 <section class="cart section--lg container" data-cart-id="{{cart._id}}">
     {{> cart}}
+
+    <div class="divider">
+        <i class="fi fi-rr-fingerprint"></i>
+    </div>
+    
+    {{> cartTotal}}
 </section>
 
 <script src="/js/cart.js"></script>

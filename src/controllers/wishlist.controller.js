@@ -1,6 +1,4 @@
-const wishListModel = require("../models/wishList.model");
 const WishlistRepository = require("../repositories/wishlist.repository");
-
 const wishlistR = new WishlistRepository();
 
 class WishListController {

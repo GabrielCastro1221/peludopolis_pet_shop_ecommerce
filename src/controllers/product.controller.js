@@ -1,6 +1,4 @@
-const productModel = require("../models/product.model");
 const ProductRepository = require("../repositories/product.repository");
-
 const productR = new ProductRepository();
 
 class ProductController {
@@ -29,7 +27,19 @@ class ProductController {
     }
   }
 
-  updateProduct = async (req, res) => {
+  async getProducts(req, res) {
+    try {
+      const products = await productR.getProducts();
+      if (products.length === 0) {
+        return res.status(404).json({ message: "No se encontraron productos" });
+      }
+      res.status(200).json({ products });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  async updateProduct(req, res) {
     const { id } = req.params;
     try {
       let photoUrl = req.body.photo;
@@ -51,18 +61,14 @@ class ProductController {
         thumbnail: thumbnails,
       };
 
-      const prod = await productModel.findByIdAndUpdate(
-        id,
-        { $set: updateData },
-        { new: true, runValidators: true }
-      );
-      if (!prod)
-        return res.status(404).json({ message: "Producto no encontrado" });
-      res.status(200).json({ message: "Producto actualizado", producto: prod });
+      const updatedProduct = await productR.updateProduct(id, updateData);
+      res
+        .status(200)
+        .json({ message: "Producto actualizado", producto: updatedProduct });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  };
+  }
 
   async deleteProduct(req, res) {
     const pid = req.params.id;
@@ -111,7 +117,7 @@ class ProductController {
     } catch (error) {
       res.status(500).send(error.message || "Error al cambiar a mas vendido");
     }
-  }
+  }  
 }
 
 module.exports = ProductController;

@@ -3,9 +3,7 @@ const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
 const wishlistModel = require("../models/wishList.model");
 const ticketModel = require("../models/ticket.model");
-const CartRepository = require("../repositories/cart.repository");
 
-const cartR = new CartRepository();
 class ViewsManager {
   renderPageNotFound = (req, res) => {
     try {
@@ -29,9 +27,7 @@ class ViewsManager {
         .find({ type_product: "mas vendido" })
         .lean();
 
-      const offer = await productModel.find({ type_product: "oferta" }).lean();
-
-      res.render("home", { featured, newArrive, seller, offer });
+      res.render("home", { featured, newArrive, seller });
     } catch (error) {
       res.redirect("/page-not-found");
     }
@@ -82,10 +78,6 @@ class ViewsManager {
       const users = await userModel.find({}).lean();
       const products = await productModel.find({}).lean();
       const tickets = await ticketModel.find({}).lean();
-      const carts = await cartModel
-        .find({})
-        .populate("products.product", "_id name price")
-        .lean();
       let errorMessage = null;
 
       if (users.length === 0) {
@@ -94,26 +86,12 @@ class ViewsManager {
       if (products.length === 0) {
         errorMessage = "No hay productos registrados en la plataforma.";
       }
-      if (carts.length === 0) {
-        errorMessage =
-          "No hay carritos de compra registrados en la plataforma.";
-      }
       if (tickets.length === 0) {
         errorMessage = "No se han generado tickets de compra en la plataforma.";
       }
-      const cartsWithMessage = carts.map((cart) => {
-        if (cart.products.length === 0) {
-          return {
-            ...cart,
-            message: "El carrito no tiene productos agregados.",
-          };
-        }
-        return cart;
-      });
       res.render("profileAdmin", {
         users: users || [],
         products: products || [],
-        carts: cartsWithMessage || [],
         tickets: tickets || [],
         message: errorMessage,
       });

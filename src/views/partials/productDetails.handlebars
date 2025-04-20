@@ -35,11 +35,11 @@
     </ul>
 
     <div class="details__actions">
-        <input type="number" class="quantity" value="3">
-        <a href="#" class="btn btn--sm">Añadir al carrito</a>
-        <a href="#" class="details__action-btn">
-            <i class="fi fi-rr-heart"></i>
-        </a>
+        <form class="add-to-cart-form" data-product-id="{{product._id}}" data-stock="{{product.stock}}">
+            <input type="number" class="quantity" value="1" min="1" max="{{product.quantity}}">
+            <button type="submit" class="btn btn--sm" aria-label="Añadir al carrito"><i
+                    class="fi fi-rr-shopping-cart"></i> Añadir al carrito</button>
+        </form>
     </div>
 
     <ul class="details__meta">

@@ -115,6 +115,7 @@
     padding-bottom: 0.5rem;
     padding-inline: 1rem 0.5rem;
     border-radius: 0.25rem;
+    padding: 10px;
 }
 
 .details__action-btn {

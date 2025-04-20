@@ -13,7 +13,7 @@ router.post(
   ]),
   product.createProd
 );
-
+router.get("/", product.getProducts);
 router.put(
   "/:id",
   upload.fields([

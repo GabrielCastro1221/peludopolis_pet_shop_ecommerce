@@ -34,10 +34,38 @@ class ProductRepository {
       await newProduct.save();
       return { message: "Producto creado con éxito", product: newProduct };
     } catch (error) {
-      logger.error("Error en el repositorio:", error.message);
       throw new Error(error.message);
     }
   }
+
+  async getProducts() {
+    try {
+      const products = await productModel.find({});
+      if (products.length === 0) {
+        logger.warning("No se encontraron productos");
+      }
+      return products;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async updateProduct(id, updateData) {
+    try {
+      const product = await productModel.findByIdAndUpdate(
+        id,
+        { $set: updateData },
+        { new: true, runValidators: true }
+      );
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
+      return product;
+    } catch (error) {
+      logger.error("Error al actualizar producto:", error.message);
+      throw new Error(error.message);
+    }
+  }  
 
   async deleteProduct(id) {
     const deleteProd = await productModel.findByIdAndDelete(id);

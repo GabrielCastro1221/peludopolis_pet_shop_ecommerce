@@ -163,6 +163,11 @@
     color: var(--text-color);
 }
 
+.label__city select {
+    padding: 8px;
+    width: 220px;
+}
+
 @media screen and (max-width: 992px) {
     .cart__group {
         grid-template-columns: 1fr;

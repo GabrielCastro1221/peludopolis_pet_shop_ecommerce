@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteButtons = document.querySelectorAll(".btn--delete");
 
   deleteButtons.forEach((button) => {
-    button.addEventListener("click", async (e) => {
+    button.addEventListener("click", async () => {
       const productId = button.getAttribute("data-product-id");
 
       const confirmDelete = await Swal.fire({
@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "DELETE",
           }
         );
+
         const result = await response.json();
 
         if (response.ok) {
@@ -104,4 +105,60 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  const form = document.querySelector(".form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      calculateSubtotal();
+    });
+  }
+
+  const citySelect = document.getElementById("city");
+  if (citySelect) {
+    citySelect.addEventListener("change", calculateSubtotal);
+  }
+
+  document.querySelectorAll(".quantity").forEach((input) => {
+    input.addEventListener("change", calculateSubtotal);
+  });
+
+  calculateSubtotal();
 });
+
+function calculateSubtotal() {
+  let subtotal = 0;
+  const rows = document.querySelectorAll(".table tr");
+
+  rows.forEach((row, index) => {
+    if (index === 0) return;
+
+    const priceElement = row.querySelector(".table__price");
+    const quantityInput = row.querySelector(".quantity");
+
+    if (priceElement && quantityInput) {
+      const price = parseFloat(
+        priceElement.textContent.replace("$", "").replace(",", "")
+      );
+      const quantity = parseInt(quantityInput.value);
+      subtotal += price * quantity;
+    }
+  });
+
+  const subtotalElement = document.getElementById("subtotal");
+  const shippingElement = document.getElementById("shipping");
+  const totalElement = document.getElementById("total");
+
+  const roundedSubtotal = Math.round(subtotal);
+  subtotalElement.textContent = `$${roundedSubtotal.toLocaleString()}`;
+
+  const citySelect = document.getElementById("city");
+  let shipping = 0;
+  if (citySelect && citySelect.value) {
+    shipping = parseInt(citySelect.value);
+  }
+  shippingElement.textContent = `$${shipping.toLocaleString()}`;
+
+  const total = roundedSubtotal + shipping;
+  totalElement.textContent = `$${total.toLocaleString()}`;
+}
