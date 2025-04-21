@@ -1,5 +1,19 @@
 <link rel="stylesheet" href="/css/store.css">
 <link rel="stylesheet" href="/css/billing.css">
 
-{{> breadCrumpBilling}}
-{{> billing}}
+<section class="breadcrumb">
+    {{> breadCrumpBilling}}
+</section>
+
+<section class="checkout section--lg">
+    <div class="checkout__container container grid">
+        <div class="checkout__group">
+            {{> billingForm}}
+        </div>
+
+        <div class="checkout__group">
+            {{> billingCart}}
+            {{> billingPayment}}
+        </div>
+    </div>
+</section>

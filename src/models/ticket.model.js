@@ -3,6 +3,8 @@ const { Schema, model } = require("mongoose");
 const schema = new Schema(
   {
     code: { type: String, unique: true, required: true },
+    shipping: { type: String, required: true },
+    subtotal: { type: String, required: true },
     amount: { type: Number, required: true },
     purchaser: { type: Schema.Types.ObjectId, ref: "User", required: true },
     cart: { type: Schema.Types.ObjectId, ref: "Cart", required: true },

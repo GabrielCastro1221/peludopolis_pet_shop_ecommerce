@@ -1,0 +1,31 @@
+<h3 class="section__title">Productos de la orden</h3>
+<table class="order__table">
+    <tr>
+        <th colspan="2">Productos</th>
+        <th>Total</th>
+    </tr>
+    {{#each ticket.cart.products}}
+    <tr>
+        <td>
+            <img src="{{this.product.image}}" alt="{{this.product.title}}" class="order__img">
+        </td>
+        <td>
+            <h3 class="table__title">{{this.product.title}}</h3>
+            <p class="table__quantity">Cantidad: x{{this.quantity}}</p>
+        </td>
+        <td><span class="table__price">${{this.product.price}}</span></td>
+    </tr>
+    {{/each}}
+    <tr>
+        <td><span class="order__subtitle">Subtotal</span></td>
+        <td colspan="2"><span class="table__price">${{ticket.subtotal}}</span></td>
+    </tr>
+    <tr>
+        <td><span class="order__subtitle">Envio</span></td>
+        <td colspan="2"><span class="table__price">{{ticket.shipping}}</span></td>
+    </tr>
+    <tr>
+        <td><span class="order__subtitle">Total</span></td>
+        <td colspan="2"><span class="order__grand-total">${{ticket.amount}}</span></td>
+    </tr>
+</table>

@@ -18,6 +18,6 @@ router.get("/tienda", views.renderStore);
 router.get("/tienda/:id", views.renderProductDetail);
 router.get("/lista-deseos/:id", views.renderWitchList);
 router.get("/cart/:id", views.renderCart);
-router.get("/checkout", views.renderBilling);
+router.get("/checkout/:id", views.renderBilling);
 
 module.exports = router;

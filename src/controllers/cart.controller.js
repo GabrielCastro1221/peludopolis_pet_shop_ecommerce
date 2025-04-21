@@ -15,6 +15,19 @@ class CartController {
     }
   }
 
+  async getProductsToCart(req, res) {
+    const cartId = req.params.cid;
+    try {
+      const products = await cartR.obtenerProductosDeCarrito(cartId);
+      if (!products) {
+        return res.status(404).json({ error: "Carrito no encontrado" });
+      }
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).send("Error al obtener productos del carrito");
+    }
+  }
+
   async deleteProductToCart(req, res) {
     const cartId = req.params.cid;
     const productId = req.params.pid;

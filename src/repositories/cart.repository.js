@@ -1,5 +1,5 @@
 const cartModel = require("../models/cart.model");
-
+const { logger } = require("../middlewares/logger.middleware");
 class CartRepository {
   async addProductInCart(cartId, productId, quantity = 1) {
     try {
@@ -20,6 +20,19 @@ class CartRepository {
       throw new Error("Error al agregar producto al carrito: " + error.message);
     }
   }
+
+    async obtenerProductosDeCarrito(idCarrito) {
+      try {
+        const cart = await cartModel.findById(idCarrito);
+        if (!cart) {
+          logger.warning("El carrito no existe");
+          return null;
+        }
+        return cart;
+      } catch (error) {
+        throw new Error("Error al obtener los productos del carrito");
+      }
+    }
 
   async deleteProductInCart(cartId, productId) {
     try {

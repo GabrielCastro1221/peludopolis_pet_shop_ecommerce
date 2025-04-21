@@ -196,13 +196,29 @@ class ViewsManager {
     }
   }
 
-  renderBilling = (req, res) => {
+  async renderBilling(req, res) {
+    const { id } = req.params;
     try {
-      res.render("billing");
+      const ticket = await ticketModel
+        .findById(id)
+        .populate("purchaser", "last_name name email phone address city")
+        .populate({
+          path: "cart",
+          populate: {
+            path: "products.product",
+            select: "image title price",
+          },
+        })
+        .lean();
+
+      if (!ticket) {
+        return res.redirect("/page-not-found");
+      }
+      res.render("billing", { ticket });
     } catch (error) {
       res.redirect("/page-not-found");
     }
-  };
+  }
 }
 
 module.exports = ViewsManager;
