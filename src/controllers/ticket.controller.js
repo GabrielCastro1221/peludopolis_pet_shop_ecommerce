@@ -1,44 +1,43 @@
 const CartRepository = require("../repositories/cart.repository");
-const ticketModel = require("../models/ticket.model");
-const userModel = require("../models/user.model");
+const TicketRepository = require("../repositories/ticket.repository");
 const { ticketNumberRandom } = require("../utils/cart.util");
 
 const cartR = new CartRepository();
+const ticketR = new TicketRepository();
 
 class TicketController {
   async finishPurchase(req, res) {
     const cartId = req.params.cid;
     const { amount, shipping, subtotal } = req.body;
+
     try {
       const cart = await cartR.obtenerProductosDeCarrito(cartId);
-      const userWithCart = await userModel.findOne({ cart: cartId });
+      const user = await ticketR.findUserByCartId(cartId);
 
-      if (!cart || !userWithCart) {
+      if (!cart || !user) {
         return res
           .status(404)
           .json({ error: "Carrito o usuario no encontrado" });
       }
 
-      const ticket = new ticketModel({
+      const ticketData = {
         code: ticketNumberRandom(),
         amount,
         shipping,
         subtotal,
-        purchaser: userWithCart._id,
+        purchaser: user._id,
         cart: cartId,
         purchase_datetime: new Date(),
-      });
+      };
 
-      await ticket.save();
-
-      userWithCart.tickets.push(ticket._id);
-      await userWithCart.save();
+      const ticket = await ticketR.createTicket(ticketData);
+      await ticketR.addTicketToUser(user._id, ticket._id);
 
       res.status(201).json({ _id: ticket._id });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Error al realizar la compra, intenta nuevamente" });
+      res.status(500).json({
+        error: "Error al realizar la compra, intenta nuevamente",
+      });
     }
   }
 }
