@@ -1,0 +1,49 @@
+<div class="details__group">
+    <img src="{{pet.photo}}" alt="{{pet.name}}" class="details__img">
+    {{#if pet.thumbnail}}
+    <div class="details__small-images grid">
+        {{#each pet.thumbnail}}
+        <img src="{{this.url}}" alt="{{product.name}}" class="details__small-img">
+        {{/each}}
+    </div>
+    {{/if}}
+</div>
+
+<div class="details__group">
+    <h3 class="details__title">{{pet.name}}</h3>
+    <p class="details__brand">Raza: <span>{{pet.breed}}</span></p>
+
+    <div class="details__price flex">
+        <span class="new__price">Edad: {{pet.age}}</span>
+    </div>
+
+    <p class="short__description">
+        {{pet.description}}
+    </p>
+
+    <ul class="product__list">
+        <li class="list__item flex">
+            <i class="fi fi-rr-crown">1 año de garantia</i>
+        </li>
+        <li class="list__item flex">
+            <i class="fi fi-rr-refresh">Política de devolución de 30 días</i>
+        </li>
+        <li class="list__item flex">
+            <i class="fi fi-rr-credit-card">Pago contra reembolso disponible</i>
+        </li>
+    </ul>
+
+    <div class="details__actions">
+        <button type="submit" class="btn btn--sm" aria-label="Solicitud de adopción"><i class="fi fi-rr-dog"></i>
+            Realizar solicitud de adopción</button>
+    </div>
+
+    <h3>Datos del dueño</h3>
+    <ul class="details__meta">
+        <li class="meta__list flex"><span>Nombre:</span> {{pet.owner.name}} {{pet.owner.last_name}}</li>
+        <li class="meta__list flex"><span>Email</span> {{pet.owner.email}}</li>
+        <li class="meta__list flex"><span>Telefono</span> {{pet.owner.phone}}</li>
+        <li class="meta__list flex"><span>Ciudad</span> {{pet.owner.city}}</li>
+        <li class="meta__list flex"><span>Dirección</span> {{pet.owner.address}}</li>
+    </ul>
+</div>

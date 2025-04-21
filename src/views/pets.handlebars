@@ -2,22 +2,17 @@
 <link rel="stylesheet" href="/css/home.css">
 
 <section class="breadcrumb">
-    {{> breadCrump}}
-    {{> filterStore}}
+    {{> breadCrumpPets}}
 </section>
 
 <section class="products section container">
     <p class="total__products">
-        Tenemos <span>los mejores</span> productos para tu peludo.
+        Descubre <span>tu próximo amigo peludo</span> y dale un hogar lleno de amor. 🐾
     </p>
     <div class="products__container grid">
-        {{> productStore}}
+        {{> pets}}
     </div>
     <ul class="pagination">
-        {{> paginationStore}}
+        {{> petsPagination}}
     </ul>
-    {{> category}}
 </section>
-
-<script src="/js/store/filterStore.js"></script>
-<script src="/js/store/store.js"></script>

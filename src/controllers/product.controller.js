@@ -22,7 +22,6 @@ class ProductController {
       await productR.createProduct(newProd);
       res.redirect("/perfil-admin");
     } catch (error) {
-      console.log(error.message);
       res.status(500).send("Error al crear producto");
     }
   }

@@ -1,0 +1,40 @@
+{{#if adoptions.length}}
+    {{#each adoptions}}
+    <div class="product__item">
+        <div class="product__banner">
+            <a href="/mascota-adopcion/{{this._id}}" class="product__images">
+                <img src="{{this.photo}}" alt="{{this.name}}" class="product__img default">
+                <img src="{{this.photo}}" alt="{{this.name}}" class="product__img hover">
+            </a>
+
+            <div class="product__actions">
+                <a href="/mascota-adopcion/{{this._id}}" class="action__btn" aria-label="Detalle de la mascota">
+                    <i class="fi fi-rr-eye"></i>
+                </a>
+                <a href="#" class="action__btn" aria-label="Compartir">
+                    <i class="fi fi-rr-shuffle"></i>
+                </a>
+            </div>
+
+            <div class="product__badge light-pink">
+                {{this.breed}}
+            </div>
+        </div>
+
+        <div class="product__content">
+            <a href="#">
+                <h3 class="product__title">{{this.name}}</h3>
+            </a>
+            <div class="product__price flex">
+                <span class="new__price">Edad: {{this.age}}</span>
+            </div>
+
+            <button type="submit" class="action__btn cart__btn" aria-label="Solicitud de adopción">
+               <i class="fi fi-rr-dog"></i>
+            </button>
+        </div>
+    </div>
+    {{/each}}
+{{else}}
+    <p>No hay mascotas disponibles para adopción en este momento.</p>
+{{/if}}

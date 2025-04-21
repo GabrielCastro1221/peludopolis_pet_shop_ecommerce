@@ -3,6 +3,9 @@ const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
 const wishlistModel = require("../models/wishList.model");
 const ticketModel = require("../models/ticket.model");
+const AdoptionsRepository = require("../repositories/adoptions.repository");
+
+const adoptionsR = new AdoptionsRepository();
 
 class ViewsManager {
   renderPageNotFound = (req, res) => {
@@ -215,6 +218,43 @@ class ViewsManager {
         return res.redirect("/page-not-found");
       }
       res.render("billing", { ticket });
+    } catch (error) {
+      res.redirect("/page-not-found");
+    }
+  }
+
+  async renderPets(req, res) {
+    try {
+      const { page = 1, limit = 6, species, gender } = req.query;
+      const adoptions = await adoptionsR.getPets({
+        page,
+        limit,
+        species,
+        gender,
+      });
+
+      res.render("pets", {
+        adoptions: adoptions.docs,
+        totalPages: adoptions.totalPages,
+        currentPage: adoptions.page,
+        hasPrevPage: adoptions.hasPrevPage,
+        hasNextPage: adoptions.hasNextPage,
+        prevPage: adoptions.prevPage,
+        nextPage: adoptions.nextPage,
+        limit,
+        species,
+        gender,
+      });
+    } catch (error) {
+      res.redirect("/page-not-found");
+    }
+  }
+  
+  async renderPetDetail(req, res) {
+    try {
+      const { id } = req.params;
+      const pet = await adoptionsR.findPetById(id);
+      res.render("petDetail", { pet });
     } catch (error) {
       res.redirect("/page-not-found");
     }

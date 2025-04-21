@@ -54,15 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         const ticket = await response.json();
-        showToast("Compra realizada con éxito 🎉", "success");
+        showToast("Orden de compra generada con exito!", "success");
         setTimeout(() => {
           window.location.href = `/checkout/${ticket._id}`;
         }, 1500);
       } else {
-        showToast("Error al realizar la compra. Intenta nuevamente.", "error");
+        showToast(
+          "Error al generar la orden la compra. Intenta nuevamente.",
+          "error"
+        );
       }
     } catch (error) {
-      console.error("Error al procesar el pago: ", error);
       showToast("Error de conexión. Por favor, intenta más tarde.", "error");
     }
   });
