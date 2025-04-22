@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const AdoptionsController = require("../controllers/adoptions.controller");
+const PetsController = require("../controllers/pets.controller");
 const upload = require("../middlewares/cloudinary.middleware");
 
 const router = Router();
-const adoption = new AdoptionsController();
+const pet = new PetsController();
 
 router.post(
   "/create",
@@ -11,10 +11,10 @@ router.post(
     { name: "photo", maxCount: 1 },
     { name: "thumbnail", maxCount: 5 },
   ]),
-  adoption.createPet
+  pet.createPet
 );
 
-router.get("/", adoption.getPets);
+router.get("/", pet.getPets);
 
 router.put(
   "/:id",
@@ -22,9 +22,9 @@ router.put(
     { name: "photo", maxCount: 1 },
     { name: "thumbnail", maxCount: 5 },
   ]),
-  adoption.updatePet
+  pet.updatePet
 );
 
-router.delete("/:id", adoption.deletePet);
+router.delete("/:id", pet.deletePet);
 
 module.exports = router;

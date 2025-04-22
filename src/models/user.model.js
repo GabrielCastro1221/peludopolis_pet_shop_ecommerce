@@ -12,12 +12,17 @@ const schema = new Schema(
     wishlist: { type: Schema.Types.ObjectId, ref: "Wishlist" },
     role: { type: String, enum: ["admin", "usuario"], default: "usuario" },
     gender: { type: String, enum: ["masculino", "femenino"] },
-    newsletter: { type: String, enum: ["suscrito", "no suscrito"], default: "no suscrito" },
+    newsletter: {
+      type: String,
+      enum: ["suscrito", "no suscrito"],
+      default: "no suscrito",
+    },
     phone: { type: String },
     address: { type: String },
     city: { type: String },
     tickets: [{ type: Schema.Types.ObjectId, ref: "Ticket" }],
     pets: [{ type: Schema.Types.ObjectId, ref: "Pets" }],
+    adoptions: [{ type: Schema.Types.ObjectId, ref: "Adoption" }],
     token_reset: { token: String, expire: Date },
   },
   {

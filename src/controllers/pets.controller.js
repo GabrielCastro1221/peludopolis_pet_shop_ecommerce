@@ -1,5 +1,5 @@
-const AdoptionsRepository = require("../repositories/adoptions.repository");
-const adoptionsR = new AdoptionsRepository();
+const PetsRepository = require("../repositories/pets.repository");
+const petsR = new PetsRepository();
 
 class AdoptionsController {
   async createPet(req, res) {
@@ -25,7 +25,7 @@ class AdoptionsController {
         owner,
       };
 
-      const result = await adoptionsR.createPet(newPet);
+      const result = await petsR.createPet(newPet);
       res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -35,7 +35,7 @@ class AdoptionsController {
   async getPets(req, res) {
     try {
       const { page, limit, species, gender } = req.query;
-      const pets = await adoptionsR.getPets({ page, limit, species, gender });
+      const pets = await petsR.getPets({ page, limit, species, gender });
       res.status(200).json(pets);
     } catch (error) {
       res.status(500).json({ message: "Error al obtener mascotas" });
@@ -64,7 +64,7 @@ class AdoptionsController {
         thumbnail: thumbnails,
       };
 
-      const updatedPet = await adoptionsR.updatePet(id, updateData);
+      const updatedPet = await petsR.updatePet(id, updateData);
       res.status(200).json({ message: "Mascota actualizada", pet: updatedPet });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -74,7 +74,7 @@ class AdoptionsController {
   async deletePet(req, res) {
     const pid = req.params.id;
     try {
-      const pet = await adoptionsR.deletePet(pid);
+      const pet = await petsR.deletePet(pid);
       res.status(200).json({ message: "Mascota eliminada", pet });
     } catch (error) {
       res.status(500).json({ message: "Error al eliminar la mascota" });

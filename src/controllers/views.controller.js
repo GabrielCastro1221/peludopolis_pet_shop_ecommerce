@@ -3,9 +3,9 @@ const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
 const wishlistModel = require("../models/wishList.model");
 const ticketModel = require("../models/ticket.model");
-const AdoptionsRepository = require("../repositories/adoptions.repository");
+const PetsRepository = require("../repositories/pets.repository");
 
-const adoptionsR = new AdoptionsRepository();
+const petsR = new PetsRepository();
 
 class ViewsManager {
   renderPageNotFound = (req, res) => {
@@ -226,7 +226,7 @@ class ViewsManager {
   async renderPets(req, res) {
     try {
       const { page = 1, limit = 6, species, gender } = req.query;
-      const adoptions = await adoptionsR.getPets({
+      const adoptions = await petsR.getPets({
         page,
         limit,
         species,
@@ -253,7 +253,7 @@ class ViewsManager {
   async renderPetDetail(req, res) {
     try {
       const { id } = req.params;
-      const pet = await adoptionsR.findPetById(id);
+      const pet = await petsR.findPetById(id);
       res.render("petDetail", { pet });
     } catch (error) {
       res.redirect("/page-not-found");

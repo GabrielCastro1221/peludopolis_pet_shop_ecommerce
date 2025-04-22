@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
+const wishlistModel = require("../models/wishList.model");
 const bcrypt = require("bcrypt");
 
 class UserRepository {
@@ -16,10 +17,14 @@ class UserRepository {
       const newCart = new cartModel();
       await newCart.save();
 
+      const newWish = new wishlistModel();
+      await newWish.save();
+
       const newUser = new userModel({
         ...userData,
         password: hash,
         cart: newCart._id,
+        wishlist: newWish._id,
       });
 
       await newUser.save();
@@ -81,6 +86,25 @@ class UserRepository {
         throw new Error("Usuario no encontrado");
       }
       return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async subscribeToNewsletter(email) {
+    try {
+      if (!email) throw new Error("El email es requerido.");
+
+      const user = await userModel.findOne({ email });
+      if (!user) throw new Error("Usuario no encontrado.");
+
+      if (user.newsletter === "suscrito") {
+        throw new Error("Ya estas suscrito al boletin informativo.");
+      }
+
+      user.newsletter = "suscrito";
+      await user.save();
+      return { message: "Suscripción al boletin informativo exitosa." };
     } catch (error) {
       throw new Error(error.message);
     }

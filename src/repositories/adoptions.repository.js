@@ -1,124 +1,111 @@
-const adoptionsModel = require("../models/adoptions.model");
-const UserModel = require("../models/user.model"); // Import User model
-const { logger } = require("../middlewares/logger.middleware");
+const adoptionModel = require("../models/adoption.model");
+const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
 
-class AdoptionsRepository {
-  async createPet({
-    name,
-    species,
-    breed,
-    age,
-    gender,
-    description,
-    photo,
-    medicalHistory = [],
-    thumbnails = [],
-    owner,
-  }) {
+class AdoptionRepository {
+  async createAdoptionRequest(data) {
     try {
-      if (
-        !name ||
-        !species ||
-        !breed ||
-        !age ||
-        !gender ||
-        !description ||
-        !photo ||
-        !owner
-      ) {
-        throw new Error("Todos los campos son requeridos");
+      const {
+        pet,
+        adopter_name,
+        adopter_lastname,
+        adopter_email,
+        adopter_phone,
+        adopter_address,
+        adopter_city,
+        adopter_ID,
+        adopter_photo,
+        observations,
+        members_family = [],
+      } = data;
+
+      const requiredFields = [
+        pet,
+        adopter_name,
+        adopter_lastname,
+        adopter_email,
+        adopter_phone,
+        adopter_address,
+        adopter_city,
+        adopter_ID,
+        adopter_photo,
+      ];
+
+      if (requiredFields.some((field) => !field)) {
+        throw new Error("Todos los campos requeridos deben ser completados");
       }
 
-      const newPet = new adoptionsModel({
-        name,
-        species,
-        description,
-        photo,
-        thumbnail: thumbnails,
-        age,
-        gender,
-        medicalHistory,
-        breed,
-        owner,
+      const newRequest = new adoptionModel({
+        code: uuidv4(),
+        pet: new mongoose.Types.ObjectId(pet),
+        adopter_name,
+        adopter_lastname,
+        adopter_email,
+        adopter_phone,
+        adopter_address,
+        adopter_city,
+        adopter_ID,
+        adopter_photo,
+        observations,
+        members_family,
       });
-      await newPet.save();
 
-      const user = await UserModel.findById(owner);
-      if (!user) {
-        throw new Error("Usuario no encontrado");
-      }
-      user.pets.push(newPet._id);
-      await user.save();
+      await newRequest.save();
 
       return {
-        message: "Mascota en adopción creada y asignada con éxito",
-        pet: newPet,
+        message: "Solicitud de adopción creada con éxito",
+        adoptionRequest: newRequest,
       };
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error("Error al crear la solicitud: " + error.message);
     }
   }
 
-  async getPets({ page = 1, limit = 6, species, gender }) {
+  async getAdoptionRequests(page = 1, limit = 6) {
     try {
-      const query = {};
-      if (species) query.species = species;
-      if (gender) query.gender = gender;
-
       const options = {
         page: parseInt(page),
         limit: parseInt(limit),
         sort: { createdAt: -1 },
+        populate: "pet",
       };
-
-      const result = await adoptionsModel.paginate(query, options);
-      return result;
+      return await adoptionModel.paginate({}, options);
     } catch (error) {
-      throw new Error("Error al obtener las mascotas: " + error.message);
+      throw new Error("Error al obtener las solicitudes: " + error.message);
     }
   }
 
-  async findPetById(id) {
+  async getAdoptionRequestById(id) {
     try {
-      const pet = await adoptionsModel.findById(id).populate("owner");
-      if (!pet) {
-        throw new Error("Mascota no encontrada");
-      }
-      return pet;
+      const request = await adoptionModel.findById(id).populate("pet");
+      if (!request) throw new Error("Solicitud no encontrada");
+      return { message: "Solicitud encontrada con éxito", request };
     } catch (error) {
-      throw new Error("Error al buscar la mascota: " + error.message);
+      throw new Error("Error al obtener la solicitud: " + error.message);
     }
   }
 
-  async updatePet(id, updateData) {
+  async updateAdoptionRequest(id, data) {
     try {
-      const pet = await adoptionsModel.findByIdAndUpdate(
-        id,
-        { $set: updateData },
-        { new: true, runValidators: true }
-      );
-      if (!pet) {
-        throw new Error("Mascota no encontrada");
-      }
-      return pet;
+      const updated = await adoptionModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      if (!updated) throw new Error("Solicitud no encontrada");
+      return updated;
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error("Error al actualizar la solicitud: " + error.message);
     }
   }
 
-  async deletePet(id) {
+  async deleteAdoptionRequest(id) {
     try {
-      const deletePet = await adoptionsModel.findByIdAndDelete(id);
-      if (!deletePet) {
-        logger.warning("Mascota no encontrada");
-        throw new Error("Mascota no encontrada");
-      }
-      logger.info("Mascota eliminada");
-      return deletePet;
+      const deleted = await adoptionModel.findByIdAndDelete(id);
+      if (!deleted) throw new Error("Solicitud no encontrada");
+      return { message: "Solicitud eliminada con éxito" };
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error("Error al eliminar la solicitud: " + error.message);
     }
   }
 }
 
-module.exports = AdoptionsRepository;
+module.exports = AdoptionRepository;

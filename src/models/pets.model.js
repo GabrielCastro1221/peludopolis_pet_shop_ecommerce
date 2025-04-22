@@ -19,10 +19,8 @@ const schema = new Schema({
   ],
   adoptiveFamily: {
     type: Schema.Types.ObjectId,
-    ref: "AdoptiveFamily",
+    ref: "Adoption",
   },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date },
 });
 
 schema.plugin(mongoosePaginate);

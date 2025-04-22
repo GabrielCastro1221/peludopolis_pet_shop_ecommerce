@@ -1,4 +1,3 @@
-const userModel = require("../models/user.model");
 const UserRepository = require("../repositories/user.repository");
 const userR = new UserRepository();
 
@@ -64,40 +63,34 @@ class UserController {
       const { password, ...rest } = user._doc;
       res.status(200).json({
         success: true,
-        message: "Informacion del perfil obtenida exitosamente",
+        message: "Información del perfil obtenida exitosamente",
         data: { ...rest },
       });
     } catch (error) {
       res.status(500).json({
         error: error.message,
-        message: "Error al obtener la informacion del perfil",
+        message: "Error al obtener la información del perfil",
       });
     }
   }
 
-  subscribeToNewsletter = async (req, res) => {
+  async subscribeToNewsletter(req, res) {
     try {
       const { email } = req.body;
-      if (!email) {
-        return res.status(400).json({ message: "El email es requerido." });
-      }
-      const user = await userModel.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: "Usuario no encontrado." });
-      }
-      if (user.newsletter === "suscrito") {
-        return res
-          .status(400)
-          .json({ message: "El usuario ya está suscrito al newsletter." });
-      }
-      user.newsletter = "suscrito";
-      await user.save();
-      res.status(200).json({ message: "Suscripción al newsletter exitosa." });
+      const result = await userR.subscribeToNewsletter(email);
+      res.status(200).json(result);
     } catch (error) {
-      console.error("Error al suscribirse al newsletter:", error);
+      if (
+        error.message === "El email es requerido." ||
+        error.message === "Usuario no encontrado." ||
+        error.message === "Ya estas suscrito al boletin informativo."
+      ) {
+        return res.status(400).json({ message: error.message });
+      }
+
       res.status(500).json({ message: "Error del servidor." });
     }
-  };
+  }
 }
 
 module.exports = UserController;
