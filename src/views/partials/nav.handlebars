@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/css/nav.css">
 
 <header class="header">
-    
     <div class="header__top">
         <div class="header__container container">
             <div class="header__contact">
@@ -40,14 +39,15 @@
                     <a href="/tienda" class="nav__link">tienda</a>
                 </li>
                 <li class="nav__item">
-                    <a href="/adopciones" class="nav__link">Adopta una mascota</a>
+                    <a href="/perfil-admin" class="nav__link" style="display: none;">Mi cuenta</a>
                 </li>
                 <li class="nav__item">
-                    <a href="/perfil-usuario" class="nav__link">Mi cuenta</a>
+                    <a href="/perfil-usuario" class="nav__link" style="display: none;">Mi cuenta</a>
                 </li>
                 <li class="nav__item">
                     <a href="/login" class="nav__link">Login</a>
                 </li>
+
             </ul>
             <div class="header__search">
                 <input type="text" placeholder="Buscar productos" class="form__input">
@@ -56,10 +56,7 @@
         </div>
 
         <div class="header__user-actions">
-            <a href="/lista-deseos" class="header__action-btn">
-                <img src="/assets/img/icon-heart.svg" alt="">
-                <span class="count">3</span>
-            </a>
+
             <a href="/cart/1" class="header__action-btn">
                 <img src="/assets/img/icon-cart.svg" alt="">
                 <span class="count">3</span>
@@ -71,5 +68,6 @@
         </div>
     </nav>
 </header>
+
 
 <script src="/js/nav.js"></script>

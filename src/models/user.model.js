@@ -9,7 +9,6 @@ const schema = new Schema(
     password: { type: String, required: true },
     age: { type: Number },
     cart: { type: Schema.Types.ObjectId, ref: "Cart" },
-    wishlist: { type: Schema.Types.ObjectId, ref: "Wishlist" },
     role: { type: String, enum: ["admin", "usuario"], default: "usuario" },
     gender: { type: String, enum: ["masculino", "femenino"] },
     newsletter: {
@@ -22,7 +21,7 @@ const schema = new Schema(
     city: { type: String },
     tickets: [{ type: Schema.Types.ObjectId, ref: "Ticket" }],
     pets: [{ type: Schema.Types.ObjectId, ref: "Pets" }],
-    adoptions: [{ type: Schema.Types.ObjectId, ref: "Adoption" }],
+    adoptions_request: [{ type: Schema.Types.ObjectId, ref: "Adoption" }],
     token_reset: { token: String, expire: Date },
   },
   {

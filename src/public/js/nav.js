@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const navToggle = document.getElementById("nav-toggle");
   const navClose = document.getElementById("nav-close");
   const loginLink = document.querySelector('a[href="/login"]');
-  const accountLink = document.querySelector('a[href="/perfil-usuario"]');
+  const userAccountLink = document.querySelector('a[href="/perfil-usuario"]');
+  const adminAccountLink = document.querySelector('a[href="/perfil-admin"]');
 
   const handleMissingElement = (element, message) => {
     if (!element) {
@@ -20,18 +21,36 @@ document.addEventListener("DOMContentLoaded", () => {
       "No se encontró el botón para mostrar el menú."
     ) ||
     handleMissingElement(loginLink, "No se encontró el enlace de login.") ||
-    handleMissingElement(accountLink, "No se encontró el enlace de Mi Cuenta.")
+    handleMissingElement(
+      userAccountLink,
+      "No se encontró el enlace de Mi Cuenta Usuario."
+    ) ||
+    handleMissingElement(
+      adminAccountLink,
+      "No se encontró el enlace de Mi Cuenta Admin."
+    )
   ) {
     return;
   }
 
   const isLoggedIn = localStorage.getItem("token") !== null;
+  const userRole = localStorage.getItem("role");
+
+  console.log("isLoggedIn:", isLoggedIn);
+  console.log("userRole:", userRole);
 
   if (isLoggedIn) {
-    accountLink.style.display = "block";
+    if (userRole === "admin") {
+      adminAccountLink.style.display = "block";
+      userAccountLink.style.display = "none";
+    } else if (userRole === "user") {
+      userAccountLink.style.display = "block";
+      adminAccountLink.style.display = "none";
+    }
     loginLink.style.display = "none";
   } else {
-    accountLink.style.display = "none";
+    userAccountLink.style.display = "none";
+    adminAccountLink.style.display = "none";
     loginLink.style.display = "block";
   }
 

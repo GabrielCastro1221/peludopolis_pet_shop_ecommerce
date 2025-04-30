@@ -121,6 +121,11 @@
     color: var(--first-color);
 }
 
+.hidden {
+    display: none;
+  }
+  
+
 @media screen and (max-width: 1200px) {
     .header__top {
         display: none;

@@ -38,14 +38,59 @@ class ProductRepository {
     }
   }
 
-  async getProducts() {
+  async getPaginatedProducts({
+    page = 1,
+    limit = 6,
+    sort = "asc",
+    query = null,
+  }) {
     try {
-      const products = await productModel.find({});
-      if (products.length === 0) {
-        logger.warning("No se encontraron productos");
-      }
-      return products;
+      const pageValue = parseInt(page, 10) || 1;
+      const limitValue = parseInt(limit, 10) || 100;
+      const sortOptions =
+        sort === "asc" ? { price: 1 } : sort === "desc" ? { price: -1 } : {};
+      const queryOptions = query ? { category: query } : {};
+
+      const products = await productModel
+        .find(queryOptions)
+        .sort(sortOptions)
+        .skip((pageValue - 1) * limitValue)
+        .limit(limitValue)
+        .lean();
+
+      const totalProducts = await productModel.countDocuments(queryOptions);
+      const totalPages = Math.ceil(totalProducts / limitValue);
+      const categorias = await productModel.distinct("category");
+
+      return {
+        productos: products,
+        categorias,
+        pagination: {
+          hasPrevPage: pageValue > 1,
+          hasNextPage: pageValue < totalPages,
+          prevPage: pageValue > 1 ? pageValue - 1 : null,
+          nextPage: pageValue < totalPages ? pageValue + 1 : null,
+          currentPage: pageValue,
+          totalPages,
+          limit: limitValue,
+          sort,
+          query,
+        },
+      };
     } catch (error) {
+      throw new Error("Error al paginar productos: " + error.message);
+    }
+  }
+
+  async getProductById(id) {
+    try {
+      const product = await productModel.findById(id).lean();
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
+      return product;
+    } catch (error) {
+      logger.error("Error al obtener producto:", error.message);
       throw new Error(error.message);
     }
   }
@@ -65,7 +110,7 @@ class ProductRepository {
       logger.error("Error al actualizar producto:", error.message);
       throw new Error(error.message);
     }
-  }  
+  }
 
   async deleteProduct(id) {
     const deleteProd = await productModel.findByIdAndDelete(id);
@@ -82,11 +127,6 @@ class ProductRepository {
       throw new Error("Producto no encontrado");
     }
     const currentType = product.type_product;
-    if (currentType && currentType !== "destacado") {
-      throw new Error(
-        `No se puede marcar como "destacado" porque ya está marcado como "${currentType}"`
-      );
-    }
     const newType = currentType === "destacado" ? null : "destacado";
     const prod = await productModel.findByIdAndUpdate(
       id,
@@ -102,11 +142,6 @@ class ProductRepository {
       throw new Error("Producto no encontrado");
     }
     const currentType = product.type_product;
-    if (currentType && currentType !== "nuevo arribo") {
-      throw new Error(
-        `No se puede marcar como "nuevo arribo" porque ya está marcado como "${currentType}"`
-      );
-    }
     const newType = currentType === "nuevo arribo" ? null : "nuevo arribo";
     const prod = await productModel.findByIdAndUpdate(
       id,
@@ -122,11 +157,6 @@ class ProductRepository {
       throw new Error("Producto no encontrado");
     }
     const currentType = product.type_product;
-    if (currentType && currentType !== "mas vendido") {
-      throw new Error(
-        `No se puede marcar como "más vendido" porque ya está marcado como "${currentType}"`
-      );
-    }
     const newType = currentType === "mas vendido" ? null : "mas vendido";
     const prod = await productModel.findByIdAndUpdate(
       id,
@@ -134,6 +164,54 @@ class ProductRepository {
       { new: true }
     );
     return prod;
+  }
+
+  async getFeaturedProducts() {
+    try {
+      const featured = await productModel
+        .find({ type_product: "destacado" })
+        .lean();
+      if (featured.length === 0) {
+        logger.warning("No se encontraron productos destacados");
+      }
+      return featured;
+    } catch (error) {
+      logger.error("Error al obtener productos destacados:", error.message);
+      throw new Error(error.message);
+    }
+  }
+
+  async getNewArrive() {
+    try {
+      const newArrive = await productModel
+        .find({ type_product: "nuevo arribo" })
+        .lean();
+      if (newArrive.length === 0) {
+        logger.warning("No se encontraron nuevos arribos");
+      }
+      return newArrive;
+    } catch (error) {
+      logger.error("Error al obtener nuevos arribos:", error.message);
+      throw new Error(error.message);
+    }
+  }
+
+  async getMoreSeller() {
+    try {
+      const moreSeller = await productModel
+        .find({ type_product: "mas vendido" })
+        .lean();
+      if (moreSeller.length === 0) {
+        logger.warning("No se encontraron los productos mas vendidos");
+      }
+      return moreSeller;
+    } catch (error) {
+      logger.error(
+        "Error al obtener los productos mas vendidos:",
+        error.message
+      );
+      throw new Error(error.message);
+    }
   }
 }
 

@@ -1,7 +1,6 @@
 const userModel = require("../models/user.model");
 const cartModel = require("../models/cart.model");
-const wishlistModel = require("../models/wishList.model");
-const bcrypt = require("bcrypt");
+const { createHash } = require("../utils/hash.util");
 
 class UserRepository {
   async createUser(userData) {
@@ -10,25 +9,28 @@ class UserRepository {
       if (existingUser) {
         throw new Error("El usuario ya existe");
       }
-
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(userData.password, salt);
-
+      const hashedPassword = createHash(userData.password);
       const newCart = new cartModel();
       await newCart.save();
-
-      const newWish = new wishlistModel();
-      await newWish.save();
-
       const newUser = new userModel({
         ...userData,
-        password: hash,
+        password: hashedPassword,
         cart: newCart._id,
-        wishlist: newWish._id,
       });
-
       await newUser.save();
       return newUser;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async getAllUsers() {
+    try {
+      const users = await userModel.find({}).lean();
+      if (users.length === 0) {
+        throw new Error("No se encontraron usuarios");
+      }
+      return users;
     } catch (error) {
       throw new Error(error.message);
     }

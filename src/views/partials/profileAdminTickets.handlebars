@@ -3,7 +3,6 @@
     <div class="tab__body">
         <table class="placed__order-table">
             <tr>
-                <th>Codigo</th>
                 <th>Fecha</th>
                 <th>Comprador</th>
                 <th>Estado</th>
@@ -12,16 +11,32 @@
             </tr>
             {{#each tickets}}
             <tr>
-                <td>{{code}}</td>
-                <td>{{purchase_datetime}}</td>
-                <td>{{purchaser}}</td>
+                <td>{{formatDate purchase_datetime}}</td>
+                <td>{{this.purchaser.name}} {{this.purchaser.last_name}}</td>
                 <td>{{status}}</td>
                 <td>$ {{amount}}</td>
                 <td>
-                    <a href="#" class="view__order">Ver</a>
+                    <a href="#" class="view__order view__button" data-id="{{_id}}">Ver</a>
                 </td>
             </tr>
             {{/each}}
         </table>
+
+        <div id="modal-tickets" class="modal-tickets" style="display: none;">
+            <div class="modal-content-tickets">
+                <span class="close-tickets">&times;</span>
+                <div class="tickets__modal-wrapper section">
+                    <div class="buttons-container">
+                        <h3>Selecciona una opción:</h3>
+                        <button class="pay__btn"><i class="fi fi-rr-check-circle"></i> Pagado</button>
+                        <button class="cancel__btn"><i class="fi fi-rr-cross-circle"></i> Cancelado</button>
+                        <button class="process__btn"><i class="fi fi-rr-process"></i> En proceso</button>
+                        <button class="delete__btn-t del"><i class="fi fi-rr-trash"></i> Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+
+    <script src="/js/profileAdmin/profileAdminModalTickets.js"></script>

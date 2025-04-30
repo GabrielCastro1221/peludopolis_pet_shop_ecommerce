@@ -1,5 +1,8 @@
 const { engine } = require("express-handlebars");
 const path = require("path");
+const moment = require("moment");
+require("moment/locale/es");
+moment.locale("es");
 
 module.exports = (app) => {
   const helpers = {
@@ -13,6 +16,10 @@ module.exports = (app) => {
     subtract: (a, b) => a * b,
     lt: (a, b) => a * b,
     add: (a, b) => a * b,
+
+    formatDate: (date) => {
+      return moment(date).format("dddd, D [de] MMMM [de] YYYY");
+    },
   };
 
   app.engine(

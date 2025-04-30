@@ -1,104 +1,39 @@
 const userModel = require("../models/user.model");
-const cartModel = require("../models/cart.model");
-const wishlistModel = require("../models/wishList.model");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const configObject = require("../config/env.config");
+const { generateToken } = require("../utils/generateToken.util");
 const { generarResetToken } = require("../utils/resetToken.util");
 const { createHash, isValidPassword } = require("../utils/hash.util");
+const UserRepository = require("../repositories/user.repository");
 const MailerController = require("../services/mailer.service");
 
+const userR = new UserRepository();
 const mailer = new MailerController();
 
 class AuthController {
-  generateToken = (user) => {
-    return jwt.sign(
-      { id: user._id, role: user.role },
-      configObject.auth.jwt_secret,
-      {
-        expiresIn: "15d",
-      }
-    );
-  };
-
   register = async (req, res) => {
-    const {
-      name,
-      last_name,
-      email,
-      password,
-      age,
-      role,
-      gender,
-      phone,
-      address,
-      city,
-    } = req.body;
-
     try {
-      if (!name || !email || !password) {
-        return res.render("login", {
-          message: "Todos los campos son requeridos",
-        });
-      }
-
-      const user = await userModel.findOne({ email });
-      if (user) {
-        return res.render("login", { message: "El usuario ya existe" });
-      }
-
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
-
-      const newCart = new cartModel();
-      await newCart.save();
-
-      const newWishList = new wishlistModel();
-      await newWishList.save();
-
-      const newUser = new userModel({
-        name,
-        last_name,
-        email,
-        password: hash,
-        age,
-        role,
-        gender,
-        phone,
-        cart: newCart._id,
-        wishlist: newWishList._id,
-        address,
-        city,
-      });
-
-      await newUser.save();
-      return res.render("login", { success: "Registro exitoso" });
+      const userData = req.body;
+      await userR.createUser(userData);
+      await mailer.userRegister(userData);
+      await mailer.notifyAdminOnUserRegister(userData.email);
+      res.render("login", { message: "Registro exitoso" });
     } catch (error) {
-      res
-        .status(500)
-        .render("login", { message: "Ocurrió un error en el servidor" });
+      res.render("login", { message: error.message });
     }
   };
 
   login = async (req, res) => {
-    const { email } = req.body;
+    const { email, password } = req.body;
     try {
       const user = await userModel.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });
       }
-
-      const isPasswordMatch = await bcrypt.compare(
-        req.body.password,
-        user.password
-      );
+      const isPasswordMatch = isValidPassword(password, user);
       if (!isPasswordMatch) {
         return res.status(400).json({ message: "Credenciales incorrectas" });
       }
-
-      const token = this.generateToken(user);
-      const { password, ...rest } = user._doc;
-
+      const token = generateToken(user);
+      const { password: userPassword, ...rest } = user._doc;
       res.status(200).json({
         message: "Inicio de sesión exitoso",
         data: {

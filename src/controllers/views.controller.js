@@ -1,11 +1,12 @@
-const productModel = require("../models/product.model");
-const userModel = require("../models/user.model");
-const cartModel = require("../models/cart.model");
-const wishlistModel = require("../models/wishList.model");
-const ticketModel = require("../models/ticket.model");
-const PetsRepository = require("../repositories/pets.repository");
+const ProductRepository = require("../repositories/product.repository");
+const TicketRepository = require("../repositories/ticket.repository");
+const UserRepository = require("../repositories/user.repository");
+const CartRepository = require("../repositories/cart.repository");
 
-const petsR = new PetsRepository();
+const productR = new ProductRepository();
+const ticketR = new TicketRepository();
+const userR = new UserRepository();
+const cartR = new CartRepository();
 
 class ViewsManager {
   renderPageNotFound = (req, res) => {
@@ -15,21 +16,12 @@ class ViewsManager {
       res.redirect("/page-not-found");
     }
   };
-
+  
   renderHome = async (req, res) => {
     try {
-      const featured = await productModel
-        .find({ type_product: "destacado" })
-        .lean();
-
-      const newArrive = await productModel
-        .find({ type_product: "nuevo arribo" })
-        .lean();
-
-      const seller = await productModel
-        .find({ type_product: "mas vendido" })
-        .lean();
-
+      const featured = await productR.getFeaturedProducts();
+      const newArrive = await productR.getNewArrive();
+      const seller = await productR.getMoreSeller();
       res.render("home", { featured, newArrive, seller });
     } catch (error) {
       res.redirect("/page-not-found");
@@ -78,25 +70,25 @@ class ViewsManager {
 
   renderProfileAdmin = async (req, res) => {
     try {
-      const users = await userModel.find({}).lean();
-      const products = await productModel.find({}).lean();
-      const tickets = await ticketModel.find({}).lean();
-      let errorMessage = null;
+      const { page, limit = 100, sort, query } = req.query;
+      const users = await userR.getAllUsers();
 
-      if (users.length === 0) {
-        errorMessage = "No hay usuarios registrados en la plataforma.";
-      }
-      if (products.length === 0) {
-        errorMessage = "No hay productos registrados en la plataforma.";
-      }
-      if (tickets.length === 0) {
-        errorMessage = "No se han generado tickets de compra en la plataforma.";
-      }
+      const { productos, categorias, pagination } =
+        await productR.getPaginatedProducts({
+          page,
+          limit,
+          sort,
+          query,
+        });
+
+      const tickets = await ticketR.getTickets();
+
       res.render("profileAdmin", {
-        users: users || [],
-        products: products || [],
-        tickets: tickets || [],
-        message: errorMessage,
+        users,
+        products: productos,
+        categorias,
+        pagination,
+        tickets,
       });
     } catch (error) {
       res.redirect("/page-not-found");
@@ -106,50 +98,29 @@ class ViewsManager {
   renderStore = async (req, res) => {
     try {
       const { page = 1, limit = 6, sort = "asc", query = null } = req.query;
-      const pageValue = parseInt(page, 10) || 1;
-      const limitValue = parseInt(limit, 10) || 100;
-      const sortOptions =
-        sort === "asc" ? { price: 1 } : sort === "desc" ? { price: -1 } : {};
-      const queryOptions = query ? { category: query } : {};
-      const products = await productModel
-        .find(queryOptions)
-        .sort(sortOptions)
-        .skip((pageValue - 1) * limitValue)
-        .limit(limitValue);
-      const totalProducts = await productModel.countDocuments(queryOptions);
-      const totalPages = Math.ceil(totalProducts / limitValue);
-      const categorias = await productModel.distinct("category");
-
-      if (products.length === 0) {
+      const { productos, categorias, pagination } =
+        await productR.getPaginatedProducts({
+          page,
+          limit,
+          sort,
+          query,
+        });
+      if (productos.length === 0) {
         return res.render("store", {
           productos: [],
           categorias,
           error: "No hay productos disponibles en la tienda",
-          hasPrevPage: false,
-          hasNextPage: false,
-          currentPage: pageValue,
-          totalPages: 0,
-          limit: limitValue,
-          sort,
-          query,
+          ...pagination,
         });
       }
       res.render("store", {
-        productos: products.map((producto) => ({
+        productos: productos.map((producto) => ({
           id: producto._id,
           type_product: producto.type_product,
-          ...producto.toObject(),
+          ...producto,
         })),
         categorias,
-        hasPrevPage: pageValue > 1,
-        hasNextPage: pageValue < totalPages,
-        prevPage: pageValue > 1 ? pageValue - 1 : null,
-        nextPage: pageValue < totalPages ? pageValue + 1 : null,
-        currentPage: pageValue,
-        totalPages,
-        limit: limitValue,
-        sort,
-        query,
+        ...pagination,
       });
     } catch (error) {
       res.redirect("/page-not-found");
@@ -157,11 +128,11 @@ class ViewsManager {
   };
 
   renderProductDetail = async (req, res) => {
-    const { id } = req.params;
     try {
-      const product = await productModel.findById(id);
+      const productId = req.params.id;
+      const product = await productR.getProductById(productId);
       if (!product) {
-        res.redirect("/page-not-found");
+        return res.redirect("/page-not-found");
       }
       res.render("productDetail", { product });
     } catch (error) {
@@ -169,29 +140,12 @@ class ViewsManager {
     }
   };
 
-  renderWitchList = async (req, res) => {
-    const idWishlist = req.params.id;
-    try {
-      const wish = await wishlistModel
-        .findById(idWishlist)
-        .populate("products.product", "_id title price image");
-      if (!wish) {
-        throw new Error("Carrito no encontrado");
-      }
-      res.render("wishList", { wish });
-    } catch (error) {
-      res.redirect("/page-not-found");
-    }
-  };
-
   async renderCart(req, res) {
-    const idCarrito = req.params.id;
     try {
-      const cart = await cartModel
-        .findById(idCarrito)
-        .populate("products.product", "_id title price image");
+      const cartId = req.params.id;
+      const cart = await cartR.getCartById(cartId);
       if (!cart) {
-        throw new Error("Carrito no encontrado");
+        return res.redirect("/page-not-found");
       }
       res.render("cart", { cart });
     } catch (error) {
@@ -200,61 +154,13 @@ class ViewsManager {
   }
 
   async renderBilling(req, res) {
-    const { id } = req.params;
     try {
-      const ticket = await ticketModel
-        .findById(id)
-        .populate("purchaser", "last_name name email phone address city")
-        .populate({
-          path: "cart",
-          populate: {
-            path: "products.product",
-            select: "image title price",
-          },
-        })
-        .lean();
-
+      const ticketId = req.params.id;
+      const ticket = await ticketR.getTicketById(ticketId);
       if (!ticket) {
         return res.redirect("/page-not-found");
       }
       res.render("billing", { ticket });
-    } catch (error) {
-      res.redirect("/page-not-found");
-    }
-  }
-
-  async renderPets(req, res) {
-    try {
-      const { page = 1, limit = 6, species, gender } = req.query;
-      const adoptions = await petsR.getPets({
-        page,
-        limit,
-        species,
-        gender,
-      });
-
-      res.render("pets", {
-        adoptions: adoptions.docs,
-        totalPages: adoptions.totalPages,
-        currentPage: adoptions.page,
-        hasPrevPage: adoptions.hasPrevPage,
-        hasNextPage: adoptions.hasNextPage,
-        prevPage: adoptions.prevPage,
-        nextPage: adoptions.nextPage,
-        limit,
-        species,
-        gender,
-      });
-    } catch (error) {
-      res.redirect("/page-not-found");
-    }
-  }
-  
-  async renderPetDetail(req, res) {
-    try {
-      const { id } = req.params;
-      const pet = await petsR.findPetById(id);
-      res.render("petDetail", { pet });
     } catch (error) {
       res.redirect("/page-not-found");
     }

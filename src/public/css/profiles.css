@@ -171,6 +171,32 @@
     font-size: 18px;
 }
 
+.modal-tickets {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-tickets {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 500px;
+}
+
+.close-tickets {
+    cursor: pointer;
+    float: right;
+    font-size: 18px;
+}
+
 .modal__create-user {
     display: none;
     position: fixed;
@@ -274,8 +300,6 @@
     display: block;
 }
 
-
-
 .buttons-container button {
     margin: 10px;
     margin-top: 1rem;
@@ -293,6 +317,29 @@
     outline: none;
 }
 
+
+.delete__btn,
+.delete__btn-t,
+.cancel__btn {
+    background-color: var(--error-color);
+    color: var(--first-color-alt);
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.delete__btn:hover,
+.delete__btn-t:hover,
+.cancel__btn:hover {
+    background-color: transparent;
+    color: var(--error-color);
+    border: 1px solid var(--first-color);
+    border-radius: 0.5rem;
+    font-weight: var(--weight-500);
+}
+
+.pay__btn,
+.cancel__btn,
+.process__btn,
 .create__btn,
 .update__btn,
 .admin__btn,
@@ -303,11 +350,22 @@
     background-color: var(--first-color);
     color: var(--first-color-alt);
     cursor: pointer;
+    border-radius: 0.5rem;
 }
 
-.delete__btn {
-    background-color: var(--error-color);
-    color: var(--first-color-alt);
+.pay__btn:hover,
+.cancel__btn:hover,
+.process__btn:hover,
+.admin__btn:hover,
+.user__btn:hover,
+.feature__btn:hover,
+.best__seller:hover,
+.new__arrive:hover {
+    background-color: transparent;
+    color: var(--first-color);
+    border: 1px solid var(--first-color);
+    border-radius: 0.5rem;
+    font-weight: var(--weight-600);
 }
 
 .product__modal-wrapper {
@@ -315,7 +373,6 @@
     align-items: center;
     justify-content: space-between;
 }
-
 
 @media screen and (max-width: 1400px) {
     .accounts__container {

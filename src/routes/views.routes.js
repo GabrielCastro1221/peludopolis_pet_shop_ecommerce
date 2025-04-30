@@ -16,10 +16,7 @@ router.get("/perfil-usuario", views.renderProfileUser);
 router.get("/perfil-admin", views.renderProfileAdmin);
 router.get("/tienda", views.renderStore);
 router.get("/tienda/:id", views.renderProductDetail);
-router.get("/lista-deseos/:id", views.renderWitchList);
 router.get("/cart/:id", views.renderCart);
 router.get("/checkout/:id", views.renderBilling);
-router.get("/adopciones", views.renderPets);
-router.get("/mascota-adopcion/:id", views.renderPetDetail);
 
 module.exports = router;
