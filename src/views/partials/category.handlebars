@@ -1,17 +1,18 @@
-<section class="categories container section">
-    <h3 class="section__title">
-        <span>Categorias</span>
-        populares
+<section class="categories container section" aria-labelledby="categories-title">
+    <h3 class="section__title" id="categories-title">
+        <span>Categorías</span> populares
     </h3>
-    <div class="categories__container swiper">
-        <div class="swiper-wrapper"></div>
 
-        <div class="swiper-button-next">
+    <div class="categories__container swiper" aria-label="Lista de categorías populares">
+        <div class="swiper-wrapper">
+        </div>
+
+        <button class="swiper-button-next" aria-label="Siguiente categoría">
             <i class="fi fi-rr-angle-small-right"></i>
-        </div>
-        <div class="swiper-button-prev">
+        </button>
+        <button class="swiper-button-prev" aria-label="Categoría anterior">
             <i class="fi fi-rr-angle-small-left"></i>
-        </div>
+        </button>
     </div>
 </section>
 

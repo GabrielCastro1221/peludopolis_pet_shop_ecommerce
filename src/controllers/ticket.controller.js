@@ -6,6 +6,7 @@ const MailerController = require("../services/mailer.service");
 const cartR = new CartRepository();
 const ticketR = new TicketRepository();
 const mailer = new MailerController();
+
 class TicketController {
   async finishPurchase(req, res) {
     const cartId = req.params.cid;
@@ -18,6 +19,12 @@ class TicketController {
           .status(404)
           .json({ error: "Carrito o usuario no encontrado" });
       }
+      const productsData = cart.products.map((product) => ({
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+      }));
       const ticketData = {
         code: ticketNumberRandom(),
         amount,
@@ -26,16 +33,18 @@ class TicketController {
         purchaser: user._id,
         cart: cartId,
         purchase_datetime: new Date(),
+        products: productsData,
       };
       const ticket = await ticketR.createTicket(ticketData);
       await ticketR.addTicketToUser(user._id, ticket._id);
+      await cartR.emptyCart(cartId);
       await mailer.SendPurchaseConfirmation(user.email, ticketData);
       res.status(201).json({ _id: ticket._id });
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({
-        error: "Error al realizar la compra, intenta nuevamente",
-      });
+      console.error(error.message);
+      res
+        .status(500)
+        .json({ error: "Error al realizar la compra, intenta nuevamente" });
     }
   }
 

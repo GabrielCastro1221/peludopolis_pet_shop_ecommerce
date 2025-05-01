@@ -116,6 +116,10 @@
     display: none;
 }
 
+.nav__toggle {
+    cursor: pointer;
+}
+
 .active-link,
 .nav__link:hover {
     color: var(--first-color);

@@ -1,9 +1,23 @@
-<h3 class="section__title">Datos para el envío de los productos</h3>
-<form action="" class="form grid">
-    <input type="text" value="{{ticket.purchaser.name}}" class="form__input" readonly>
-    <input type="text" value="{{ticket.purchaser.last_name}}" class="form__input" readonly>
-    <input type="text" value="{{ticket.purchaser.address}}" class="form__input">
-    <input type="text" value="{{ticket.purchaser.city}}" class="form__input">
-    <input type="text" value="{{ticket.purchaser.phone}}" class="form__input">
-    <input type="email" value="{{ticket.purchaser.email}}" class="form__input" readonly>
-</form>
+<section class="order-details">
+    <h3 class="section__title" id="shipping-title">Datos para el envío de los productos</h3>
+
+    <form action="" class="form grid" aria-labelledby="shipping-title">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" value="{{ticket.purchaser.name}}" class="form__input" readonly aria-label="Nombre del comprador">
+
+        <label for="last_name">Apellido:</label>
+        <input type="text" id="last_name" value="{{ticket.purchaser.last_name}}" class="form__input" readonly aria-label="Apellido del comprador">
+
+        <label for="address">Dirección de envío:</label>
+        <input type="text" id="address" value="{{ticket.purchaser.address}}" class="form__input" aria-label="Dirección de envío">
+
+        <label for="city">Ciudad:</label>
+        <input type="text" id="city" value="{{ticket.purchaser.city}}" class="form__input" aria-label="Ciudad de envío">
+
+        <label for="phone">Teléfono de contacto:</label>
+        <input type="text" id="phone" value="{{ticket.purchaser.phone}}" class="form__input" aria-label="Número de teléfono">
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" value="{{ticket.purchaser.email}}" class="form__input" readonly aria-label="Correo electrónico del comprador">
+    </form>
+</section>

@@ -1,24 +1,27 @@
-{{#if hasPrevPage}}
-<li>
-    <a href="?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="pagination__link icon">
-        <i class="fi fi-rr-angle-double-left"></i>
-    </a>
-</li>
-{{/if}}
+<nav class="pagination" aria-label="Paginación de productos">
+    {{#if hasPrevPage}}
+    <li>
+        <a href="?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="pagination__link icon" aria-label="Página anterior">
+            <i class="fi fi-rr-angle-double-left"></i>
+        </a>
+    </li>
+    {{/if}}
 
-{{#each (range 1 totalPages)}}
-<li>
-    <a href="?page={{this}}&limit={{../limit}}&sort={{../sort}}&query={{../query}}"
-        class="pagination__link {{#if (isEqual this ../currentPage)}}active{{/if}}">
-        {{this}}
-    </a>
-</li>
-{{/each}}
+    {{#each (range 1 totalPages)}}
+    <li>
+        <a href="?page={{this}}&limit={{../limit}}&sort={{../sort}}&query={{../query}}"
+            class="pagination__link {{#if (isEqual this ../currentPage)}}active{{/if}}"
+            aria-label="Ir a la página {{this}}">
+            {{this}}
+        </a>
+    </li>
+    {{/each}}
 
-{{#if hasNextPage}}
-<li>
-    <a href="?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="pagination__link icon">
-        <i class="fi fi-rr-angle-double-right"></i>
-    </a>
-</li>
-{{/if}}
+    {{#if hasNextPage}}
+    <li>
+        <a href="?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="pagination__link icon" aria-label="Página siguiente">
+            <i class="fi fi-rr-angle-double-right"></i>
+        </a>
+    </li>
+    {{/if}}
+</nav>

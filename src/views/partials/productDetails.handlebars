@@ -1,49 +1,51 @@
-<div class="details__group">
-    <img src="{{product.image}}" alt="{{product.title}}" class="details__img">
+<section class="details__group" aria-labelledby="product-title">
+    <img src="{{product.image}}" alt="Imagen principal de {{product.title}}" class="details__img">
+
     {{#if product.thumbnail}}
-    <div class="details__small-images grid">
+    <div class="details__small-images grid" aria-label="Imágenes adicionales de {{product.title}}">
         {{#each product.thumbnail}}
-        <img src="{{this.url}}" alt="{{product.title}}" class="details__small-img">
+        <img src="{{this.url}}" alt="Vista alternativa de {{product.title}}" class="details__small-img">
         {{/each}}
     </div>
     {{/if}}
-</div>
+</section>
 
-<div class="details__group">
-    <h3 class="details__title">{{product.title}}</h3>
+<section class="details__group">
+    <h2 class="details__title" id="product-title">{{product.title}}</h2>
     <p class="details__brand">Marca: <span>{{product.brand}}</span></p>
 
-    <div class="details__price flex">
-        <span class="new__price">${{product.price}}</span>
-
+    <div class="details__price flex" aria-label="Precio del producto">
+        <span class="new__price" aria-label="Precio actual">${{product.price}}</span>
     </div>
 
     <p class="short__description">
         {{product.description}}
     </p>
 
-    <ul class="product__list">
+    <ul class="product__list" aria-label="Beneficios y opciones de compra">
         <li class="list__item flex">
-            <i class="fi fi-rr-crown">1 año de garantia</i>
+            <i class="fi fi-rr-crown"></i> 1 año de garantía
         </li>
         <li class="list__item flex">
-            <i class="fi fi-rr-refresh">Política de devolución de 30 días</i>
+            <i class="fi fi-rr-refresh"></i> Política de devolución de 30 días
         </li>
         <li class="list__item flex">
-            <i class="fi fi-rr-credit-card">Pago contra reembolso disponible</i>
+            <i class="fi fi-rr-credit-card"></i> Pago contra reembolso disponible
         </li>
     </ul>
 
     <div class="details__actions">
         <form class="add-to-cart-form" data-product-id="{{product._id}}" data-stock="{{product.stock}}">
-            <input type="number" class="quantity" value="1" min="1" max="{{product.quantity}}">
-            <button type="submit" class="btn btn--sm" aria-label="Añadir al carrito"><i
-                    class="fi fi-rr-shopping-cart"></i> Añadir al carrito</button>
+            <label for="quantity">Seleccionar cantidad:</label>
+            <input type="number" id="quantity" class="quantity" value="1" min="1" max="{{product.quantity}}" aria-label="Cantidad de {{product.title}}">
+            <button type="submit" class="btn btn--sm" aria-label="Añadir {{product.title}} al carrito">
+                <i class="fi fi-rr-shopping-cart"></i> Añadir al carrito
+            </button>
         </form>
     </div>
 
-    <ul class="details__meta">
-        <li class="meta__list flex"><span>Codigo del producto:</span> {{product.code}}</li>
-        <li class="meta__list flex"><span>Disponibilidad</span> {{product.stock}} unidades en stock</li>
+    <ul class="details__meta" aria-label="Información adicional del producto">
+        <li class="meta__list flex"><span>Código del producto:</span> {{product.code}}</li>
+        <li class="meta__list flex"><span>Disponibilidad:</span> {{product.stock}} unidades en stock</li>
     </ul>
-</div>
+</section>

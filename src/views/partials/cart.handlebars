@@ -1,46 +1,47 @@
 <div class="table__container">
-    <table class="table">
-        <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Quitar</th>
-        </tr>
-
-        {{#each cart.products}}
-        <tr>
-            <td>
-                <img src="{{this.product.image}}" alt="{{this.product.title}}" class="table__img">
-            </td>
-            <td>
-                <h3 class="table__title">{{this.product.title}}</h3>
-                <p class="table__description">{{this.product.description}}</p>
-            </td>
-            <td>
-                <span class="table__price">${{this.product.price}}</span>
-            </td>
-            <td>
-                <input type="number" class="quantity" value="{{this.quantity}}">
-            </td>
-            <td>
-                <button class="btn btn--sm btn--delete" data-product-id="{{this.product._id}}">
-                    <i class="fi fi-rr-trash"></i>
-                </button>
-            </td>
-        </tr>
-        {{/each}}
+    <table class="table" aria-label="Resumen de productos en el carrito">
+        <thead>
+            <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Quitar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart.products}}
+            <tr>
+                <td>
+                    <img src="{{this.product.image}}" alt="Imagen de {{this.product.title}}" class="table__img">
+                </td>
+                <td>
+                    <h3 class="table__title">{{this.product.title}}</h3>
+                    <p class="table__description">{{this.product.description}}</p>
+                </td>
+                <td>
+                    <span class="table__price">${{this.product.price}}</span>
+                </td>
+                <td>
+                    <input type="number" class="quantity" value="{{this.quantity}}" aria-label="Cantidad de {{this.product.title}}">
+                </td>
+                <td>
+                    <button class="btn btn--sm btn--delete" data-product-id="{{this.product._id}}" aria-label="Quitar {{this.product.title}} del carrito">
+                        <i class="fi fi-rr-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 
 <div class="cart__actions">
-    <a href="#" class="btn flex btn--md btn--empty-cart">
+    <a href="#" class="btn flex btn--md btn--empty-cart" aria-label="Vaciar todos los productos del carrito">
         <i class="fi fi-rr-trash"></i> Vaciar carrito
     </a>
 
-    <a href="/tienda" class="btn flex btn--md">
+    <a href="/tienda" class="btn flex btn--md" aria-label="Continuar comprando en la tienda">
         <i class="fi fi-rr-basket-shopping-simple"></i> Continuar comprando
     </a>
 </div>
-
-

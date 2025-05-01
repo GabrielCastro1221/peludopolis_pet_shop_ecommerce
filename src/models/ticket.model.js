@@ -15,6 +15,14 @@ const schema = new Schema(
       enum: ["pagado", "cancelado", "en proceso"],
       default: "en proceso",
     },
+    products: [
+      {
+        productId: { type: Schema.Types.ObjectId, ref: "Product" },
+        title: String,
+        price: Number,
+        quantity: Number,
+      },
+    ],
   },
   { timestamps: true, versionKey: false }
 );

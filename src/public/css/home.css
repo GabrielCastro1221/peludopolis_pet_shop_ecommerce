@@ -260,6 +260,7 @@
     position: absolute;
     bottom: 1.6rem;
     right: 1.25rem;
+    cursor: pointer;
 }
 
 .tab__btn.active-tab {

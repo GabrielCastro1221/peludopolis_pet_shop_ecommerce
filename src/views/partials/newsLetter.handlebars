@@ -1,16 +1,18 @@
 <link rel="stylesheet" href="/css/newsLetter.css">
 
-<section class="newsletter section">
+<section class="newsletter section" aria-labelledby="newsletter-title">
     <div class="newsletter__container container grid">
-        <h3 class="newsletter__title">
-            Suscríbete a nuestro boletin informativo
-        </h3>
+        <h2 class="newsletter__title" id="newsletter-title">
+            Suscríbete a nuestro boletín informativo
+        </h2>
         <p class="newsletter__description">
             Mantente al tanto de nuestras novedades, ofertas y promociones exclusivas.
         </p>
-        <form action="" class="newsletter__form">
-            <input type="text" placeholder="Ingrese su email" class="newsletter__input">
-            <button type="submit" class="newsletter__btn" id="suscribe">Suscribirse</button>
+        <form action="" class="newsletter__form" aria-labelledby="newsletter-title">
+            <input type="email" placeholder="Ingrese su email" id="newsletter-email" class="newsletter__input" required aria-label="Campo para ingresar email">
+            <button type="submit" class="newsletter__btn" id="suscribe" aria-label="Suscribirse al boletín informativo">
+                Suscribirse
+            </button>
         </form>
     </div>
 </section>

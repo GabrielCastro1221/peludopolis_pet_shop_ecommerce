@@ -1,8 +1,8 @@
 <div class="filters">
-  <form class="form flex-between">
-    <label class="label">
-      filtrar precio:
-      <select class="select-field" id="filter-select">
+  <form class="form flex-between" aria-labelledby="filter-title">
+    <label class="label" for="filter-select">
+      <span id="filter-title">Filtrar por precio:</span>
+      <select class="select-field" id="filter-select" name="filter" aria-label="Filtrar productos por precio" required>
         <option value="/tienda?sort=asc">Menor precio</option>
         <option value="/tienda?sort=desc">Mayor precio</option>
       </select>

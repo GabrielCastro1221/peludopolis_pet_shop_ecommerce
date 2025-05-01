@@ -1,7 +1,9 @@
-<ul class="breadcrumb__list flex container">
-    <li><a href="/" class="breadcrumb__link">Inicio</a></li>
-    <li>/</li>
-    <li><a href="/tienda" class="breadcrumb__link">Tienda</a></li>
-    <li>/</li>
-    <li><a href="#" class="breadcrumb__link">Detalle del producto</a></li>
-</ul>
+<nav aria-label="Ruta de navegación" class="breadcrumb__nav">
+    <ul class="breadcrumb__list flex container">
+        <li><a href="/" class="breadcrumb__link" aria-label="Ir a la página de inicio">Inicio</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/tienda" class="breadcrumb__link" aria-label="Explorar la tienda de mascotas">Tienda</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/tienda/{{product._id}}" class="breadcrumb__link" aria-label="Ver detalles del producto">Detalle del producto</a></li>
+    </ul>
+</nav>
