@@ -19,4 +19,8 @@ router.get("/tienda/:id", views.renderProductDetail);
 router.get("/cart/:id", views.renderCart);
 router.get("/checkout/:id", views.renderBilling);
 
+router.get('/get-public-key', (req, res) => {
+    res.json({ publicKey: process.env.EPAYCO_PUBLIC_KEY });
+});
+
 module.exports = router;

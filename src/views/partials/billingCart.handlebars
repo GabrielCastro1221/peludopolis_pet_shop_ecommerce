@@ -29,3 +29,36 @@
         <td colspan="2"><span class="order__grand-total">${{ticket.amount}}</span></td>
     </tr>
 </table>
+<button class="btn btn--md" style="margin-top: 20px;" id="payment">Realizar pedido</button>
+
+<script src="https://checkout.epayco.co/checkout.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const paymentButton = document.getElementById("payment");
+
+        paymentButton.addEventListener("click", async () => {
+            const response = await fetch('/get-public-key');
+            const data = await response.json();
+            const handler = ePayco.checkout.configure({
+                key: data.publicKey,
+                test: true,
+            });
+
+            handler.open({
+                name: "Mi Tienda",
+                description: "Pago de orden",
+                invoice: "{{ticket.code}}",
+                currency: "cop",
+                amount: "{{ticket.amount}}",
+                tax_base: "0",
+                tax: "0",
+                country: "co",
+                lang: "es",
+                response: "https://tusitio.com/respuesta-epayco",
+                external: false,
+                autoclick: false,
+            });
+        });
+    });
+</script>
