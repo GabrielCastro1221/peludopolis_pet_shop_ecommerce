@@ -2,6 +2,7 @@ const ProductRepository = require("../repositories/product.repository");
 const TicketRepository = require("../repositories/ticket.repository");
 const UserRepository = require("../repositories/user.repository");
 const CartRepository = require("../repositories/cart.repository");
+const configObject = require("../config/env.config");
 
 const productR = new ProductRepository();
 const ticketR = new TicketRepository();
@@ -17,6 +18,14 @@ class ViewsManager {
     }
   };
   
+  renderAccessDenied = (req, res) => {
+    try {
+      res.render("accessDenied");
+    } catch (error) {
+      res.redirect("/page-not-found");
+    }
+  };
+
   renderHome = async (req, res) => {
     try {
       const featured = await productR.getFeaturedProducts();
@@ -72,17 +81,13 @@ class ViewsManager {
     try {
       const { page, limit = 100, sort, query } = req.query;
       const users = await userR.getAllUsers();
-
-      const { productos, categorias, pagination } =
-        await productR.getPaginatedProducts({
+      const { productos, categorias, pagination } = await productR.getPaginatedProducts({
           page,
           limit,
           sort,
           query,
         });
-
       const tickets = await ticketR.getTickets();
-
       res.render("profileAdmin", {
         users,
         products: productos,
@@ -163,6 +168,16 @@ class ViewsManager {
       res.render("billing", { ticket });
     } catch (error) {
       res.redirect("/page-not-found");
+    }
+  }
+
+  async getEpaycoData(req, res) {
+    try {
+      const publicKey = configObject.epayco.epayco_public_key;
+      const mode = configObject.epayco.epayco_mode;
+      res.json({ publicKey, mode });
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener los datos de Epayco" });
     }
   }
 }

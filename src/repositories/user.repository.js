@@ -93,6 +93,22 @@ class UserRepository {
     }
   }
 
+  getOrders = async (userId) => {
+    try {
+      const user = await userModel.findById(userId).populate({
+        path: "tickets",
+        select: "code shipping subtotal amount status purchase_datetime",
+      });
+      if (!user) {
+        throw new Error("Usuario no encontrado.");
+      }
+      return user.tickets;
+    } catch (error) {
+      console.error("Error al obtener los tickets:", error.message);
+      throw new Error(error.message);
+    }
+  };
+
   async subscribeToNewsletter(email) {
     try {
       if (!email) throw new Error("El email es requerido.");

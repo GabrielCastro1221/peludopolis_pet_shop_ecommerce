@@ -57,7 +57,7 @@ class UserController {
   }
 
   async getUserProfile(req, res) {
-    const userId = req.userId;
+    const userId = req.user._id;
     try {
       const user = await userR.getUserProfile(userId);
       const { password, ...rest } = user._doc;
@@ -70,6 +70,24 @@ class UserController {
       res.status(500).json({
         error: error.message,
         message: "Error al obtener la información del perfil",
+      });
+    }
+  }
+
+  async getUserOrders(req, res) {
+    const userId = req.user._id;
+    try {
+      const tickets = await userR.getOrders(userId);
+      res.status(200).json({
+        success: true,
+        message: "Tickets de compra obtenidos exitosamente",
+        data: tickets,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener los tickets de compra",
+        error: error.message,
       });
     }
   }

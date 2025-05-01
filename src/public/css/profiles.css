@@ -171,6 +171,33 @@
     font-size: 18px;
 }
 
+.modal-order-user {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.modal-content-order-user {
+    text-align: center;
+}
+
+.close-order-user {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .modal-tickets {
     display: none;
     position: fixed;
@@ -320,7 +347,9 @@
 
 .delete__btn,
 .delete__btn-t,
-.cancel__btn {
+.cancel__btn,
+.cancel__order-btn,
+.delete__order-btn {
     background-color: var(--error-color);
     color: var(--first-color-alt);
     cursor: pointer;
@@ -329,7 +358,9 @@
 
 .delete__btn:hover,
 .delete__btn-t:hover,
-.cancel__btn:hover {
+.cancel__btn:hover,
+.cancel__order-btn:hover,
+.delete__order-btn:hover {
     background-color: transparent;
     color: var(--error-color);
     border: 1px solid var(--first-color);

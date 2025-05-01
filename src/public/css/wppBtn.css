@@ -7,8 +7,10 @@
 
 .btn__wpp {
     width: 200px;
+    padding: 4px;
     height: 40px;
-
+    border-radius: 5px;
+    background-color: var(--first-color-alt);
     transition: transform 0.3s ease;
 }
 

@@ -20,8 +20,6 @@ const schema = new Schema(
     address: { type: String },
     city: { type: String },
     tickets: [{ type: Schema.Types.ObjectId, ref: "Ticket" }],
-    pets: [{ type: Schema.Types.ObjectId, ref: "Pets" }],
-    adoptions_request: [{ type: Schema.Types.ObjectId, ref: "Adoption" }],
     token_reset: { token: String, expire: Date },
   },
   {

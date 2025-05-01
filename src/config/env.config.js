@@ -32,7 +32,7 @@ const configObject = {
   },
   epayco: {
     epayco_public_key: process.env.EPAYCO_PUBLIC_KEY,
-    epayco_private_key: process.env.EPAYCO_PRIVATE_KEY,
+    epayco_mode: process.env.EPAYCO_MODE,
   }
 };
 

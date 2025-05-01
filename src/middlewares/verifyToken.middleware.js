@@ -4,25 +4,28 @@ const configObject = require("../config/env.config");
 
 class AuthMiddleware {
   authenticate = async (req, res, next) => {
-    const authToken = req.headers.authorization;
-    if (!authToken || !authToken.startsWith("Bearer")) {
-      return res.status(401).json({
-        success: false,
-        message: "Autorización denegada. No se proporcionó token.",
-      });
+    const token = req.cookies.token;
+    if (!token) {
+      return res.redirect("/acceso-denegado");
     }
-    try {
-      const token = authToken.split(" ")[1];
-      const decoded = jwt.verify(token, configObject.auth.jwt_secret);
 
-      req.userId = decoded.id;
-      req.role = decoded.role;
+    try {
+      const decoded = jwt.verify(token, configObject.auth.jwt_secret);
+      const user = await userModel.findById(decoded.id);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "Usuario no encontrado.",
+        });
+      }
+
+      req.user = user;
       next();
     } catch (error) {
       if (error.name === "TokenExpiredError") {
         return res.status(401).json({
           success: false,
-          message: "El token de acceso ha expirado.",
+          message: "El token ha expirado.",
         });
       }
       return res.status(401).json({
@@ -32,30 +35,16 @@ class AuthMiddleware {
     }
   };
 
-  restrict = (roles) => async (req, res, next) => {
-    try {
-      const userId = req.userId;
-
-      const user = await userModel.findById(userId);
-      if (!user) {
-        return res.status(404).json({
-          success: false,
-          message: "Usuario no encontrado.",
-        });
+  restrict = (roles = []) => {
+    return (req, res, next) => {
+      if (!req.user) {
+        return res.redirect("/page-not-found");
       }
-      if (!roles.includes(user.role)) {
-        return res.status(403).json({
-          success: false,
-          message: "No tienes permiso para acceder a esta ruta.",
-        });
+      if (!roles.includes(req.user.role)) {
+        return res.redirect("/acceso-denegado");
       }
       next();
-    } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: "Error en la verificación de roles.",
-      });
-    }
+    };
   };
 }
 

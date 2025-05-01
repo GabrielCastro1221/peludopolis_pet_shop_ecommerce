@@ -2,17 +2,17 @@ const locationData = [
   {
     class: "footer__description",
     span: "Dirección",
-    desc: "562 Wellington Road, Street 32, San Fransisco",
+    desc: "Manizales, calle 68 #8-126, La Sultana",
   },
   {
     class: "footer__description",
     span: "Teléfono",
-    desc: "+01 2222 365 /(+91) 01 2345 6789",
+    desc: "314 638 1395",
   },
   {
     class: "footer__description",
     span: "Horario",
-    desc: "10:00 - 18:00, Mon - Sat",
+    desc: "09:00 - 20:00, Lunes - Sabado",
   },
 ];
 
@@ -45,21 +45,15 @@ const socialLinks = [
 ];
 
 const infoData = [
-  { link: "#", class: "footer__link", desc: "Mi cuenta" },
-  { link: "#", class: "footer__link", desc: "Información de entrega" },
   { link: "#", class: "footer__link", desc: "Políticas de privacidad" },
   { link: "#", class: "footer__link", desc: "Términos y condiciones" },
-  { link: "#", class: "footer__link", desc: "Contáctanos" },
   { link: "#", class: "footer__link", desc: "Centro de soporte" },
 ];
 
 const accountData = [
   { link: "/login", class: "footer__link", desc: "Ingresa" },
   { link: "#", class: "footer__link", desc: "Carrito de compras" },
-  { link: "#", class: "footer__link", desc: "Favoritos" },
-  { link: "#", class: "footer__link", desc: "Orden de seguimiento" },
   { link: "#", class: "footer__link", desc: "Ayuda" },
-  { link: "#", class: "footer__link", desc: "Órdenes" },
 ];
 
 const mapDataToHTML = (data, targetElementId, templateCallback) => {

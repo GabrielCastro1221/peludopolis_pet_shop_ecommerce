@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return Swal.fire({
           icon: "error",
           title: "Error",
-          text: "No se encontró el carrito para este usuario.",
+          html: 'Debes <a href="/login" style="color: hsl(176, 88%, 27%); text-decoration: none;">iniciar sesión</a> para agregar el producto al carrito de compras.',
           confirmButtonText: "Ok",
           background: "#fefefe",
         });
@@ -52,72 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
             icon: "error",
             title: "Error",
             text: "No se pudo agregar el producto al carrito.",
-            confirmButtonText: "Ok",
-            background: "#fefefe",
-          });
-        }
-      } catch (err) {
-        console.error(err);
-        Swal.fire({
-          icon: "error",
-          title: "Error de red",
-          text: "Ocurrió un problema al intentar agregar el producto.",
-          confirmButtonText: "Ok",
-          background: "#fefefe",
-        });
-      }
-    });
-  });
-
-  formWish.forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const productId = form.getAttribute("data-product-id");
-      const user = JSON.parse(localStorage.getItem("user"));
-      const wishId = user?.wishlist;
-
-      if (!wishId) {
-        return Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "No se encontró la lista de deseos para este usuario.",
-          confirmButtonText: "Ok",
-          background: "#fefefe",
-        });
-      }
-
-      try {
-        const response = await fetch(
-          `/api/v1/wishlist/${wishId}/products/${productId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          Swal.fire({
-            icon: "success",
-            title: "Producto agregado a la lista de deseos",
-            text: "¿Qué te gustaría hacer ahora?",
-            showCancelButton: true,
-            confirmButtonText: "Ir a la lista de deseos",
-            cancelButtonText: "Seguir comprando",
-            confirmButtonColor: "#155624",
-            cancelButtonColor: "#155624",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.href = `/lista-deseos/${wishId}`;
-            }
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "No se pudo agregar el producto a la lista de deseos.",
             confirmButtonText: "Ok",
             background: "#fefefe",
           });

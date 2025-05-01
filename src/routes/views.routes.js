@@ -7,20 +7,44 @@ const views = new ViewsController();
 const auth = new AuthMiddleware();
 
 router.get("/page-not-found", views.renderPageNotFound);
-router.get("/", views.renderHome);
+router.get("/acceso-denegado", views.renderAccessDenied);
 router.get("/login", views.renderLogin);
 router.get("/reset-password", views.renderResetPass);
 router.get("/change-password", views.renderChangePass);
 router.get("/confirm", views.renderEmailConfirm);
-router.get("/perfil-usuario", views.renderProfileUser);
-router.get("/perfil-admin", views.renderProfileAdmin);
+router.get("/", views.renderHome);
 router.get("/tienda", views.renderStore);
 router.get("/tienda/:id", views.renderProductDetail);
-router.get("/cart/:id", views.renderCart);
-router.get("/checkout/:id", views.renderBilling);
 
-router.get('/get-public-key', (req, res) => {
-    res.json({ publicKey: process.env.EPAYCO_PUBLIC_KEY });
-});
+router.get(
+  "/perfil-usuario",
+  auth.authenticate,
+  auth.restrict(["usuario"]),
+  views.renderProfileUser
+);
+router.get(
+  "/perfil-admin",
+  auth.authenticate,
+  auth.restrict(["admin"]),
+  views.renderProfileAdmin
+);
+router.get(
+  "/cart/:id",
+  auth.authenticate,
+  auth.restrict(["usuario"]),
+  views.renderCart
+);
+router.get(
+  "/checkout/:id",
+  auth.authenticate,
+  auth.restrict(["usuario"]),
+  views.renderBilling
+);
+router.get(
+  "/epayco",
+  auth.authenticate,
+  auth.restrict(["usuario"]),
+  views.getEpaycoData
+);
 
 module.exports = router;

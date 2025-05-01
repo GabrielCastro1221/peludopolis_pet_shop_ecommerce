@@ -3,10 +3,33 @@ document.addEventListener("DOMContentLoaded", () => {
     ".account__tab[data-target='#address']"
   );
   const profileContainer = document.querySelector(".address");
-  const dashboardNameElement = document.getElementById("dashboard-name");
+  const dashboardNameElement = document.getElementById("dashboard");
   const logoutButton = document.querySelector(".logout-button");
   const deleteAccountButton = document.querySelector(".delete-button");
   const updateForm = document.getElementById("update-form");
+  const ordersTableBody = document.querySelector(".placed__order-table tbody");
+  const modal = document.getElementById("modal-order-user");
+  const closeModal = document.querySelector(".close-order-user");
+
+  closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  ordersTableBody.addEventListener("click", (event) => {
+    if (event.target.classList.contains("view__order")) {
+      event.preventDefault();
+      modal.style.display = "block";
+
+      const orderId = event.target.getAttribute("data-id");
+      console.log("Orden seleccionada:", orderId);
+    }
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
 
   const handleMissingElement = (element, message) => {
     if (!element) {
@@ -125,17 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const updateDashboardName = (data) => {
-    if (data) {
-      const { name, last_name } = data;
-      dashboardNameElement.textContent = `Hola ${name} ${last_name}`;
-      localStorage.setItem("user_name", name);
-      localStorage.setItem("user_last_name", last_name);
-    } else {
-      dashboardNameElement.textContent = "Hola Usuario";
-    }
-  };
-
   loadProfileButton.addEventListener("click", async () => {
     const userData = await fetchUserProfile();
     if (userData) {
@@ -176,14 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const userName = localStorage.getItem("user_name");
-  const userLastName = localStorage.getItem("user_last_name");
-  if (userName && userLastName) {
-    dashboardNameElement.textContent = `Hola ${userName} ${userLastName}`;
-  } else {
-    fetchUserProfile().then(updateDashboardName);
-  }
-
   logoutButton.addEventListener("click", () => {
     Swal.fire({
       title: "¿Estás seguro de cerrar sesión?",
@@ -203,7 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  console.log(logoutButton);
 
   updateForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -263,3 +266,62 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const ordersTableBody = document.querySelector(".placed__order-table tbody");
+const fetchUserOrders = async () => {
+  try {
+    const response = await fetch("/api/v1/users/orders", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener las órdenes: ${response.status}`);
+    }
+
+    const result = await response.json();
+    if (result.success && result.data) {
+      return result.data;
+    } else {
+      console.warn("No se encontraron órdenes para el usuario.");
+      return [];
+    }
+  } catch (error) {
+    console.error("Error al obtener las órdenes del usuario:", error);
+    return [];
+  }
+};
+
+const renderOrders = (orders) => {
+  ordersTableBody.innerHTML = `
+    <tr>
+      <th>Codigo de la orden</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th>Total</th>
+    </tr>
+  `;
+
+  if (orders.length === 0) {
+    ordersTableBody.innerHTML += `
+      <tr>
+        <td colspan="5">No hay órdenes disponibles.</td>
+      </tr>
+    `;
+    return;
+  }
+  orders.forEach((order) => {
+    const orderRow = document.createElement("tr");
+    orderRow.innerHTML = `
+      <td>#${order.code}</td>
+      <td>${new Date(order.purchase_datetime).toLocaleDateString()}</td>
+      <td>${order.status}</td>
+      <td>$${order.amount}</td>
+    `;
+    ordersTableBody.appendChild(orderRow);
+  });
+};
+
+fetchUserOrders().then((orders) => renderOrders(orders));

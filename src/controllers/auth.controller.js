@@ -28,24 +28,34 @@ class AuthController {
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });
       }
+  
       const isPasswordMatch = isValidPassword(password, user);
       if (!isPasswordMatch) {
         return res.status(400).json({ message: "Credenciales incorrectas" });
       }
+  
       const token = generateToken(user);
       const { password: userPassword, ...rest } = user._doc;
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, 
+        maxAge: 1000 * 60 * 60, 
+      });
+  
       res.status(200).json({
         message: "Inicio de sesión exitoso",
         data: {
           ...rest,
           role: user.role,
+          tolen: token,
         },
-        token,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   };
+  
 
   RequestPasswordReset = async (req, res) => {
     const { email } = req.body;

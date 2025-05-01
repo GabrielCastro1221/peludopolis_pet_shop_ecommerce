@@ -29,7 +29,7 @@
         <td colspan="2"><span class="order__grand-total">${{ticket.amount}}</span></td>
     </tr>
 </table>
-<button class="btn btn--md" style="margin-top: 20px;" id="payment">Realizar pedido</button>
+<button class="btn btn--md" style="margin-top: 20px;" id="payment">Pagar</button>
 
 <script src="https://checkout.epayco.co/checkout.js"></script>
 
@@ -38,15 +38,15 @@
         const paymentButton = document.getElementById("payment");
 
         paymentButton.addEventListener("click", async () => {
-            const response = await fetch('/get-public-key');
+            const response = await fetch('/epayco');
             const data = await response.json();
             const handler = ePayco.checkout.configure({
                 key: data.publicKey,
-                test: true,
+                test: data.mode,
             });
 
             handler.open({
-                name: "Mi Tienda",
+                name: "Pet Shop",
                 description: "Pago de orden",
                 invoice: "{{ticket.code}}",
                 currency: "cop",
@@ -55,9 +55,10 @@
                 tax: "0",
                 country: "co",
                 lang: "es",
-                response: "https://tusitio.com/respuesta-epayco",
+                response: "http://localhost:8080/respuesta-epayco",
                 external: false,
                 autoclick: false,
+                email_billing: "{{ticket.purchaser.email}}",
             });
         });
     });
