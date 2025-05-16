@@ -2,19 +2,23 @@ const { logger } = require("../middlewares/logger.middleware");
 const configObject = require("../config/env.config");
 require("../config/connection.config");
 const { Server } = require("socket.io");
-const Socket = require("../services/socket.service");
+
+const socketModules = [
+  require("../services/web_socket/socketProduct.service"),
+  require("../services/web_socket/socketTicket.service"),
+  require("../services/web_socket/socketUser.service"),
+  require("../services/web_socket/socketCart.service"),
+];
 
 const serverListenMiddleware = (app) => {
   const port = configObject.server.port;
   const httpServer = app.listen(port, () => {
-    try {
-      logger.info(`Servidor escuchando en el puerto ${port}`);
-      logger.info(`Peludopolis ejecutandose en la url http://localhost:${port}`);
-    } catch (error) {
-      logger.error(`Error: ${error.message}`);
-    }
+    logger.info(`Servidor escuchando en el puerto ${port}`);
+    logger.info(`Peludopolis ejecutándose en la URL http://localhost:${port}`);
   });
-  new Socket(httpServer);
+
+  const io = new Server(httpServer);
+  socketModules.forEach((SocketClass) => new SocketClass(io));
 };
 
 module.exports = serverListenMiddleware;

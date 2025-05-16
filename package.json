@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce",
+  "name": "peludopolis",
   "version": "1.0.0",
   "description": "Tienda virtual para mascotas: alimentación, salud, higiene y tecnología para perros y gatos.",
   "main": "app.js",
@@ -10,6 +10,7 @@
   },
   "keywords": [
     "ecommerce",
+    "peludopolis",
     "tienda de mascotas",
     "compras en línea",
     "productos para perros",
@@ -63,6 +64,7 @@
     "multer": "^1.4.5-lts.2",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.10.0",
+    "peludopolis": "file:",
     "socket.io": "^4.8.1",
     "uuid": "^11.1.0",
     "winston": "^3.17.0"
