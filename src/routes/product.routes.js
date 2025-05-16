@@ -8,7 +8,12 @@ const router = Router();
 const product = new ProductController();
 
 router.get("/", product.getProducts);
-
+router.get(
+  "/search",
+  auth.authenticate,
+  auth.restrict(["usuario"]),
+  product.searchProducts
+);
 router.post(
   "/create",
   upload.fields([

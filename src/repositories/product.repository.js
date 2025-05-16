@@ -213,6 +213,31 @@ class ProductRepository {
       throw new Error(error.message);
     }
   }
+
+  async searchProducts(query) {
+    try {
+      if (!query) throw new Error("Debe ingresar un término de búsqueda");
+      const searchRegex = new RegExp(query, "i");
+      const products = await productModel
+        .find({
+          $or: [
+            { title: searchRegex },
+            { category: searchRegex },
+            { brand: searchRegex },
+          ],
+        })
+        .lean();
+      if (products.length === 0) {
+        logger.warning(
+          "No se encontraron productos que coincidan con la búsqueda"
+        );
+      }
+      return products;
+    } catch (error) {
+      logger.error("Error al buscar productos:", error.message);
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = ProductRepository;

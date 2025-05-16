@@ -1,0 +1,23 @@
+ .share-menu {
+     position: absolute;
+     background: hsl(129, 44%, 94%);
+     width: 200px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     padding: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     display: flex;
+     flex-direction: column;
+     z-index: 1000;
+ }
+
+ .share-menu a {
+     color: #333;
+     text-decoration: none;
+     padding: 5px 0;
+     transition: color 0.3s;
+ }
+
+ .share-menu a:hover {
+     color: hsl(176, 88%, 27%);
+ }
