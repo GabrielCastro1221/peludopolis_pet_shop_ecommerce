@@ -1,0 +1,15 @@
+.privacy-title-main {
+    color: var(--first-color);
+    font-weight: var(--weight-500);
+}
+
+.terms-title {
+    font-size: var(--h2-font-size);
+    color: var(--first-color);
+    margin-bottom: 10px;
+}
+
+.terms-text {
+    font-size: var(--normal-font-size);
+    line-height: 1.6;
+}

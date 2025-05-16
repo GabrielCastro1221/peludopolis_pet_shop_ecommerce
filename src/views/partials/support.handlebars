@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/support.css">
+
+
+<section class="section support-container">
+    <div class="right-side">
+        <h2 class="contact-title">Contáctanos</h2>
+        <p class="contact-text">Si tienes alguna pregunta, estamos aquí para ayudarte.</p>
+
+        <div class="contact-info">
+            <p><strong>Dirección:</strong> Manizales, calle 68 #8-126, La Sultana</p>
+            <p><strong>Teléfono:</strong> 314 638 1395</p>
+            <p><strong>Email:</strong> <a href="mailto:soporte@peludopolis.com">soporte@peludopolis.com</a></p>
+            <p><strong>Horario:</strong> Lunes - Sábado, 09:00 - 20:00</p>
+            <p><strong>WhatsApp:</strong> <a href="https://wa.me/3146381395" target="_blank">Chatea con nosotros</a></p>
+        </div>
+    </div>
+
+    <div class="left-side">
+        <h2 class="contact-title">Envíanos un mensaje</h2>
+        <form id="form" class="form-support">
+            <label class="label-support" for="from_name">Nombre Completo</label>
+            <input class="input-support" placeholder="Ingresa tu nombre" type="text" id="name" name="from_name"
+                required>
+
+            <label class="label-support" for="email_id">Correo Electrónico</label>
+            <input class="input-support" placeholder="Ingresa tu correo electronico" type="email" id="email_id"
+                name="email_id" required>
+
+            <label class="label-support" for="message">Mensaje</label>
+            <textarea class="textarea-support" placeholder="Escribe tu mensaje" id="message" name="message" rows="5"
+                required></textarea>
+
+            <input type="submit" class="contact-button" id="button" value="Enviar Solicitud">
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="/js/support.js"></script>

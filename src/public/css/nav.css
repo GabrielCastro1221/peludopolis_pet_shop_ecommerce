@@ -127,8 +127,11 @@
 
 .hidden {
     display: none;
-  }
-  
+}
+
+.nav__close {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 1200px) {
     .header__top {

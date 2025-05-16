@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/footer.css">
+
 <section class="details__group" aria-labelledby="product-title">
     <img src="{{product.image}}" alt="Imagen principal de {{product.title}}" class="details__img">
 
@@ -24,20 +26,32 @@
 
     <ul class="product__list" aria-label="Beneficios y opciones de compra">
         <li class="list__item flex">
-            <i class="fi fi-rr-crown"></i> 1 año de garantía
+            <i class="fi fi-rr-camera-cctv"></i> Protegemos tu dinero
         </li>
         <li class="list__item flex">
-            <i class="fi fi-rr-refresh"></i> Política de devolución de 30 días
+            <i class="fi fi-rr-selling"></i> <a href="#" class="policy terms-btn">Consultar politicas de reembolso</a>
         </li>
         <li class="list__item flex">
-            <i class="fi fi-rr-credit-card"></i> Pago contra reembolso disponible
+            <i class="fi fi-rr-shipping-fast"></i> Envio contra entrega disponible
         </li>
     </ul>
+
+    <div id="modal-terms" class="modal-terms">
+        <div class="modal-content-terms">
+            <span class="close-terms">&times;</span>
+            <div class="terms__modal-wrapper section">
+                <div class="terms">
+                    {{> terms}}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="details__actions">
         <form class="add-to-cart-form" data-product-id="{{product._id}}" data-stock="{{product.stock}}">
             <label for="quantity">Seleccionar cantidad:</label>
-            <input type="number" id="quantity" class="quantity" value="1" min="1" max="{{product.quantity}}" aria-label="Cantidad de {{product.title}}">
+            <input type="number" id="quantity" class="quantity" value="1" min="1" max="{{product.quantity}}"
+                aria-label="Cantidad de {{product.title}}">
             <button type="submit" class="btn btn--sm" aria-label="Añadir {{product.title}} al carrito">
                 <i class="fi fi-rr-shopping-cart"></i> Añadir al carrito
             </button>
@@ -49,3 +63,5 @@
         <li class="meta__list flex"><span>Disponibilidad:</span> {{product.stock}} unidades en stock</li>
     </ul>
 </section>
+
+<script src="/js/footer,js"></script>

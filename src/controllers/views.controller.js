@@ -17,7 +17,7 @@ class ViewsManager {
       res.redirect("/page-not-found");
     }
   };
-  
+
   renderAccessDenied = (req, res) => {
     try {
       res.render("accessDenied");
@@ -81,7 +81,8 @@ class ViewsManager {
     try {
       const { page, limit = 100, sort, query } = req.query;
       const users = await userR.getAllUsers();
-      const { productos, categorias, pagination } = await productR.getPaginatedProducts({
+      const { productos, categorias, pagination } =
+        await productR.getPaginatedProducts({
           page,
           limit,
           sort,
@@ -178,6 +179,16 @@ class ViewsManager {
       res.json({ publicKey, mode });
     } catch (error) {
       res.status(500).json({ error: "Error al obtener los datos de Epayco" });
+    }
+  }
+
+  async renderTerms(req, res) {
+    try {
+      res.render("terms");
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Error al renderizar terminos y condiciones" });
     }
   }
 }

@@ -15,6 +15,7 @@ router.get("/confirm", views.renderEmailConfirm);
 router.get("/", views.renderHome);
 router.get("/tienda", views.renderStore);
 router.get("/tienda/:id", views.renderProductDetail);
+router.get("/terminos-y-condiciones", views.renderTerms);
 
 router.get(
   "/perfil-usuario",
@@ -46,5 +47,6 @@ router.get(
   auth.restrict(["usuario"]),
   views.getEpaycoData
 );
+
 
 module.exports = router;

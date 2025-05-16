@@ -9,7 +9,7 @@ const serverListenMiddleware = (app) => {
   const httpServer = app.listen(port, () => {
     try {
       logger.info(`Servidor escuchando en el puerto ${port}`);
-      logger.info(`Pet Shop ejecutandose en la url http://localhost:${port}`);
+      logger.info(`Peludopolis ejecutandose en la url http://localhost:${port}`);
     } catch (error) {
       logger.error(`Error: ${error.message}`);
     }

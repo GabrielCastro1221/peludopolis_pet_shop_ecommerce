@@ -33,7 +33,7 @@ const configObject = {
   epayco: {
     epayco_public_key: process.env.EPAYCO_PUBLIC_KEY,
     epayco_mode: process.env.EPAYCO_MODE,
-  }
+  },
 };
 
 module.exports = configObject;
