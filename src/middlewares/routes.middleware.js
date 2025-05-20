@@ -5,6 +5,8 @@ const productRouter = require("../routes/product.routes");
 const uploadRouter = require("../routes/upload.routes");
 const cartRouter = require("../routes/cart.routes");
 const ticketRouter = require("../routes/ticket.routes");
+const offerRouter = require("../routes/offer.routes");
+const eventRouter = require("../routes/events.routes");
 
 const setupRoutes = (app) => {
   app.use("/", viewsRouter);
@@ -14,6 +16,8 @@ const setupRoutes = (app) => {
   app.use("/api/v1", uploadRouter);
   app.use("/api/v1/cart", cartRouter);
   app.use("/api/v1/ticket", ticketRouter);
+  app.use("/api/v1/offer", offerRouter);
+  app.use("/api/v1/event", eventRouter);
 };
 
 module.exports = setupRoutes;
