@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           duration: 3000,
           gravity: "top",
           position: "right",
-          backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
         }).showToast();
 
         localStorage.setItem("user", JSON.stringify(result.data));
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           duration: 2000,
           gravity: "top",
           position: "right",
-          backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+          background: "linear-gradient(to right, #ff5f6d, #ffc371)",
         }).showToast();
       }
     } catch (error) {
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 2000,
         gravity: "top",
         position: "right",
-        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+        background: "linear-gradient(to right, #ff5f6d, #ffc371)",
       }).showToast();
     }
   });

@@ -1,4 +1,3 @@
-const socket = require("socket.io");
 const UserRepository = require("../../repositories/user.repository");
 const { logger } = require("../../middlewares/logger.middleware");
 

@@ -1,5 +1,5 @@
 document
-  .getElementById("form")
+  .getElementById("form-support")
   .addEventListener("submit", async function (event) {
     event.preventDefault();
     const btnC = document.getElementById("button");
@@ -17,7 +17,7 @@ document
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#28a745",
+            background: "#28a745",
             className: "toast-success",
           }).showToast();
         },
@@ -28,7 +28,7 @@ document
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#dc3545",
+            background: "#dc3545",
             className: "toast-error",
           }).showToast();
           console.error("Error al enviar el mensaje:", err);
@@ -41,7 +41,7 @@ document
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "#dc3545",
+        background: "#dc3545",
         className: "toast-error",
       }).showToast();
       console.error("Error:", error);

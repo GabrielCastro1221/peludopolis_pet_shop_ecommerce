@@ -45,7 +45,7 @@ router.delete(
 router.get(
   "/profile/me",
   auth.authenticate,
-  auth.restrict(["usuario", "admin"]),
+  auth.restrict(["usuario"]),
   user.getUserProfile
 );
 router.get(

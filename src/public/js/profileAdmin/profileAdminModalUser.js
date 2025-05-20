@@ -36,7 +36,7 @@ deleteButton.addEventListener("click", async () => {
       duration: 3000,
       gravity: "top",
       position: "center",
-      backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+      background: "linear-gradient(to right, #FF5F6D, #FFC371)",
     }).showToast();
     return;
   }
@@ -69,7 +69,7 @@ deleteButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
           }).showToast();
 
           modal.style.display = "none";
@@ -80,7 +80,7 @@ deleteButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       } catch (error) {
@@ -89,7 +89,7 @@ deleteButton.addEventListener("click", async () => {
           duration: 3000,
           gravity: "top",
           position: "center",
-          backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+          background: "linear-gradient(to right, #FF5F6D, #FFC371)",
         }).showToast();
       }
     }
@@ -103,7 +103,7 @@ adminButton.addEventListener("click", async () => {
       duration: 3000,
       gravity: "top",
       position: "center",
-      backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+      background: "linear-gradient(to right, #FF5F6D, #FFC371)",
     }).showToast();
     return;
   }
@@ -136,7 +136,7 @@ adminButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
           }).showToast();
 
           modal.style.display = "none";
@@ -147,7 +147,7 @@ adminButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       } catch (error) {
@@ -156,7 +156,7 @@ adminButton.addEventListener("click", async () => {
           duration: 3000,
           gravity: "top",
           position: "center",
-          backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+          background: "linear-gradient(to right, #FF5F6D, #FFC371)",
         }).showToast();
       }
     }
@@ -170,7 +170,7 @@ userButton.addEventListener("click", async () => {
       duration: 3000,
       gravity: "top",
       position: "center",
-      backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+      background: "linear-gradient(to right, #FF5F6D, #FFC371)",
     }).showToast();
     return;
   }
@@ -203,7 +203,7 @@ userButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
           }).showToast();
 
           modal.style.display = "none";
@@ -214,7 +214,7 @@ userButton.addEventListener("click", async () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       } catch (error) {
@@ -223,7 +223,7 @@ userButton.addEventListener("click", async () => {
           duration: 3000,
           gravity: "top",
           position: "center",
-          backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+          background: "linear-gradient(to right, #FF5F6D, #FFC371)",
         }).showToast();
       }
     }

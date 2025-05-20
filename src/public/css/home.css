@@ -314,7 +314,7 @@
 
 .deals__item:nth-child(1),
 .deals__item:nth-child(2) {
-    background-image: url(https://png.pngtree.com/background/20220714/original/pngtree-cute-cat-footprint-pattern-background-picture-image_1605674.jpg);
+    background-image: url(/assets/img/deals.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

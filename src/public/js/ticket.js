@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 4000,
       gravity: "top",
       position: "right",
-      backgroundColor:
+      background:
         type === "error"
           ? "#ff4d4d"
           : type === "success"

@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "#FF4C4C",
+        background: "#FF4C4C",
       }).showToast();
       return;
     }
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
           text: "Ticket eliminado con éxito.",
           gravity: "top",
           position: "center",
-          backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
         }).showToast();
         modal.style.display = "none";
         currentTicketId = null;
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
           duration: 3000,
           gravity: "top",
           position: "right",
-          backgroundColor: "#FF4C4C",
+          background: "#FF4C4C",
         }).showToast();
       }
     } catch (error) {
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "#FF4C4C",
+        background: "#FF4C4C",
       }).showToast();
     }
   });
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 3000,
         gravity: "top",
         position: "center",
-        backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+        background: "linear-gradient(to right, #FF5F6D, #FFC371)",
       }).showToast();
       return;
     }
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
             }).showToast();
 
             modal.style.display = "none";
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+              background: "linear-gradient(to right, #FF5F6D, #FFC371)",
             }).showToast();
           }
         } catch (error) {
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       }
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 3000,
         gravity: "top",
         position: "center",
-        backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+        background: "linear-gradient(to right, #FF5F6D, #FFC371)",
       }).showToast();
       return;
     }
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
             }).showToast();
 
             modal.style.display = "none";
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+              background: "linear-gradient(to right, #FF5F6D, #FFC371)",
             }).showToast();
           }
         } catch (error) {
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       }
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 3000,
         gravity: "top",
         position: "center",
-        backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+        background: "linear-gradient(to right, #FF5F6D, #FFC371)",
       }).showToast();
       return;
     }
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
             }).showToast();
 
             modal.style.display = "none";
@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
               duration: 3000,
               gravity: "top",
               position: "center",
-              backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+              background: "linear-gradient(to right, #FF5F6D, #FFC371)",
             }).showToast();
           }
         } catch (error) {
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            background: "linear-gradient(to right, #FF5F6D, #FFC371)",
           }).showToast();
         }
       }

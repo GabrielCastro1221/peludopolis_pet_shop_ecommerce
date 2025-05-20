@@ -65,7 +65,7 @@ const showToast = (text, type = "success") => {
     duration: 3000,
     gravity: "top",
     position: "center",
-    backgroundColor: colors[type],
+    background: colors[type],
   }).showToast();
 };
 

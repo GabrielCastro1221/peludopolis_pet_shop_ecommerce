@@ -104,30 +104,9 @@
                 <span class="close-products">&times;</span>
                 {{#each products}}
                 <div class="product" id="product-{{_id}}">
-                    <div class="product__modal-wrapper section">
-                        <div class="details__group">
-                            <img src="{{image}}" alt="{{title}}" class="image-prod" />
-
-                            {{#if thumbnail}}
-                            <div class="details__small-images grid">
-                                {{#each thumbnail}}
-                                <img src="{{this.url}}" alt="{{../name}}" class="details__small-img" />
-                                {{/each}}
-                            </div>
-                            {{/if}}
-                        </div>
-
-                        <div class="details__group dt">
-                            <h3 class="details__title">{{title}}</h3>
-                            <p class="details__brand">Marca: <span>{{brand}}</span></p>
-
-                            <div class="details__price flex">
-                                <span class="new__price">${{price}}</span>
-                            </div>
-
-                            <p class="short__description">{{description}}</p>
-                        </div>
-                    </div>
+                   <p class="user-info-mod">
+                            Desde el panel de productos. Puedes cambiar fácilmente el tipo del producto, tambien podras eliminarlo permanentemente.
+                        </p>
 
                     <div class="buttons-container">
                         <button class="feature__btn"><i class="fi fi-rr-star"></i> Destacar</button>
