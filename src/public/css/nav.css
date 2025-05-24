@@ -1,5 +1,7 @@
 .header__top {
-    background-color: var(--first-color-alt);
+    background-image: url(/assets/img/deals.jpg);
+    background-size: cover no-repeat;
+background-position: center;
     border-bottom: 1px solid var(--first-color);
     padding-block: 0.875rem;
 }
@@ -18,15 +20,17 @@
 .header__alert-news,
 .header__top-action {
     font-size: var(--small-font-size);
+    color: var(--text-color);
 }
 
 .header__alert-news {
-    color: var(--text-color-light);
-    font-weight: var(--weight-600);
+    color: var(--text-color);
+    font-weight: 700;
 }
 
 .header__top-action {
     color: var(--text-color);
+    font-weight: 700;
 }
 
 .nav,

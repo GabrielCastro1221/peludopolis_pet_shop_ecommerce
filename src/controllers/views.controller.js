@@ -2,6 +2,8 @@ const ProductRepository = require("../repositories/product.repository");
 const TicketRepository = require("../repositories/ticket.repository");
 const UserRepository = require("../repositories/user.repository");
 const CartRepository = require("../repositories/cart.repository");
+const EventRepository = require("../repositories/events.repository");
+const OfferRepository = require("../repositories/offer.repository");
 const configObject = require("../config/env.config");
 
 const productR = new ProductRepository();
@@ -31,7 +33,9 @@ class ViewsManager {
       const featured = await productR.getFeaturedProducts();
       const newArrive = await productR.getNewArrive();
       const seller = await productR.getMoreSeller();
-      res.render("home", { featured, newArrive, seller });
+      const offer = await OfferRepository.getOffers();
+      const event = await EventRepository.getEvents();
+      res.render("home", { featured, newArrive, seller, offer, event });
     } catch (error) {
       res.redirect("/page-not-found");
     }
