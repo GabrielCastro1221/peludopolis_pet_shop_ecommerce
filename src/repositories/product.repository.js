@@ -171,9 +171,6 @@ class ProductRepository {
       const featured = await productModel
         .find({ type_product: "destacado" })
         .lean();
-      if (featured.length === 0) {
-        logger.warning("No se encontraron productos destacados");
-      }
       return featured;
     } catch (error) {
       logger.error("Error al obtener productos destacados:", error.message);
@@ -186,9 +183,6 @@ class ProductRepository {
       const newArrive = await productModel
         .find({ type_product: "nuevo arribo" })
         .lean();
-      if (newArrive.length === 0) {
-        logger.warning("No se encontraron nuevos arribos");
-      }
       return newArrive;
     } catch (error) {
       logger.error("Error al obtener nuevos arribos:", error.message);
@@ -201,9 +195,6 @@ class ProductRepository {
       const moreSeller = await productModel
         .find({ type_product: "mas vendido" })
         .lean();
-      if (moreSeller.length === 0) {
-        logger.warning("No se encontraron los productos mas vendidos");
-      }
       return moreSeller;
     } catch (error) {
       logger.error(
